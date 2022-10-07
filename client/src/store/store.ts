@@ -1,9 +1,12 @@
 import { configureStore, Dispatch } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook } from 'react-redux';
 import { useDispatch, useSelector } from 'react-redux';
+import { authReducer } from './auth/authSlice';
 
 const store = configureStore({
-  reducer: {},
+  reducer: {
+    auth: authReducer,
+  },
 });
 
 // Определяем тип, возвращаемый стором, прямо из него
