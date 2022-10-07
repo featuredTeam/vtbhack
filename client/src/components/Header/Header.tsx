@@ -6,28 +6,39 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import MenuIcon from '@mui/icons-material/Menu';
 import { Logo } from '../Logo/Logo';
-import { Spacer } from '../common/Spacer';
 import { useAuth } from '../../store/auth/hooks/useAuth';
 import { ProfileMenu } from './ProfileMenu';
 import { LoginSignup } from './LoginSignup';
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
+import { ArrowDropDown } from '@mui/icons-material';
+import { Spacer } from '../common/Spacer';
 
 export const Header = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
+  const navigate = useNavigate();
+
+  const [anchorIdeas, setAnchorIdeas] = React.useState<null | HTMLElement>(
     null,
   );
-
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
+  const handleOpenIdeasMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorIdeas(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+  const handleCloseIdeasMenu = () => {
+    setAnchorIdeas(null);
+  };
+
+  const [anchorStudy, setAnchorStudy] = React.useState<null | HTMLElement>(
+    null,
+  );
+  const handleOpenStudyMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorStudy(event.currentTarget);
+  };
+
+  const handleCloseStudyMenu = () => {
+    setAnchorStudy(null);
   };
 
   const { isAuthorized } = useAuth();
@@ -37,20 +48,25 @@ export const Header = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Logo />
+          <Spacer width="40px" />
           <Box sx={{ flexGrow: 1, display: 'flex' }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
+            <Button onClick={() => navigate('/marketplace')}>
+              <Typography color="white" textAlign="center">
+                Маркетплейс
+              </Typography>
+            </Button>
+            <Spacer width="20px" />
+
+            <Button onClick={handleOpenIdeasMenu}>
+              <Typography color="white" textAlign="center">
+                Идеи
+              </Typography>
+              <ArrowDropDown sx={{ fill: 'white' }} />
+            </Button>
+            <Spacer width="20px" />
             <Menu
               id="menu-appbar"
-              anchorEl={anchorElNav}
+              anchorEl={anchorIdeas}
               anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'left',
@@ -60,20 +76,42 @@ export const Header = () => {
                 vertical: 'top',
                 horizontal: 'left',
               }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
+              open={Boolean(anchorIdeas)}
+              onClose={handleCloseIdeasMenu}
             >
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Маркетплейс</Typography>
+              <MenuItem onClick={() => navigate('/ideas/approved')}>
+                <Typography textAlign="center">Одобренные</Typography>
               </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Ярмарка идей</Typography>
+              <MenuItem onClick={() => navigate('/ideas/voting')}>
+                <Typography textAlign="center">На рассмотрении</Typography>
               </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Обучение</Typography>
+            </Menu>
+            <Button onClick={handleOpenStudyMenu}>
+              <Typography color="white" textAlign="center">
+                Обучение
+              </Typography>
+              <ArrowDropDown sx={{ fill: 'white' }} />
+            </Button>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorStudy}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorStudy)}
+              onClose={handleCloseStudyMenu}
+            >
+              <MenuItem onClick={() => navigate('/study/courses')}>
+                <Typography textAlign="center">Курсы</Typography>
+              </MenuItem>
+              <MenuItem onClick={() => navigate('/study/mentoring')}>
+                <Typography textAlign="center">Менторство</Typography>
               </MenuItem>
             </Menu>
           </Box>
