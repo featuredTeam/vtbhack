@@ -11,11 +11,11 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
-import AdbIcon from '@mui/icons-material/Adb';
 import { Logo } from '../Logo/Logo';
+import { Spacer } from '../common/Spacer';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ['Маркетплейс', 'Ярмарка идей', 'Обучение'];
+const settings = ['Профиль', 'Выйти'];
 
 export const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -82,6 +82,7 @@ export const Header = () => {
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            <Spacer width="20px" />
             {pages.map((page) => (
               <Button
                 key={page}
