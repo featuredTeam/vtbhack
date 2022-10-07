@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "@fastify/static": "6.5.0",
+    "@mui/material": "^5.10.8",
+    "@mui/styled-engine-sc": "^5.10.6",
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-fastify": "9.1.4",
@@ -31,6 +33,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
+    "styled-components": "^5.3.6",
     "typeorm": "0.3.10"
   },
   "devDependencies": {
