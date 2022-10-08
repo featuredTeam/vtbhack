@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import { IdeaEntity } from '../../database/entities/idea.entity';
 import { IdeaUserEntity } from '../../database/entities/idea_user.entity';
 import { IdeaStatus } from '../../database/entities/types/IdeaStatus';
@@ -23,12 +23,23 @@ export class IdeasService {
     private readonly vtbService: VtbService,
   ) {}
 
-  public async create(user: UserEntity, item: IdeaEntity): Promise<void> {
-    await this.ideasRepository.save({ ...item, user });
+  public async create(user: UserEntity, item: IdeaEntity): Promise<IdeaEntity> {
+    const { id } = await this.ideasRepository.save({ ...item, user });
+    return await this.ideasRepository.findOne({
+      where: {
+        id,
+      },
+      relations: {
+        user: true,
+      },
+    });
   }
 
   public async getAll(): Promise<IdeaEntityWithScore[]> {
     const ideas = await this.ideasRepository.find({
+      where: {
+        status: Not(IdeaStatus.Declined),
+      },
       relations: {
         user: true,
       },

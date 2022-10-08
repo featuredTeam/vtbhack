@@ -5,6 +5,7 @@ import { authReducer } from './auth/authSlice';
 import { profileReducer } from './profile/profileSlice';
 import { coursesReducer } from './courses/coursesSlice';
 import { itemsReducer } from './items/itemsSlice';
+import { ideasReducer } from './ideas/ideasSlice';
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     profile: profileReducer,
     courses: coursesReducer,
     items: itemsReducer,
+    ideas: ideasReducer,
   },
 });
 

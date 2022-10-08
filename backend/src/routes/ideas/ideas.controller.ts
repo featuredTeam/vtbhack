@@ -31,8 +31,8 @@ export class IdeasController {
   async create(
     @Body('user') user: UserEntity,
     @Body() idea: IdeaEntity,
-  ): Promise<void> {
-    await this.ideasService.create(user, idea);
+  ): Promise<IdeaEntity> {
+    return await this.ideasService.create(user, idea);
   }
 
   @HttpCode(HttpStatus.OK)

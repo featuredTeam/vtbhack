@@ -8,6 +8,8 @@ import { ProfilePage } from '../../pages/ProfilePage/ProfilePage';
 import { useAppDispatch } from '../../store/store';
 import { getUserAction } from '../../store/auth/authSlice';
 import { CoursesPage } from '../../pages/CoursesPage/CoursesPage';
+import { ApprovedPage } from '../../pages/Ideas/ApprovedPage';
+import { NotApprovedPage } from '../../pages/Ideas/NotApprovedPage';
 import { MarketPlacePage } from '../../pages/MarketPlacePage/MarketPlacePage';
 
 export const App: React.FC = () => {
@@ -26,6 +28,8 @@ export const App: React.FC = () => {
           <Route path="marketplace" element={<MarketPlacePage />} />
           <Route path="users/:username/profile" element={<ProfilePage />} />
           <Route path="study/courses" element={<CoursesPage />} />
+          <Route path="ideas/approved" element={<ApprovedPage />} />
+          <Route path="ideas/voting" element={<NotApprovedPage />} />
           <Route path="*" element={<div>Страница не найдена</div>} />
         </Routes>
       </Container>

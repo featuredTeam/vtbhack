@@ -33,6 +33,7 @@ import { transformMoney } from '../../store/profile/actions/transformMoney';
 import { Achievement } from './Achievement';
 import { giveAchievementAction } from '../../store/profile/actions/giveAchievement';
 import Container from '@mui/material/Container';
+import { getBalance } from '../../store/profile/actions/getBalance';
 
 export const ProfilePage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -55,15 +56,18 @@ export const ProfilePage: React.FC = () => {
   );
 
   useEffect(() => {
-    dispatch(setLoading(true));
-    dispatch(getAchievementsAction());
-    dispatch(getCompletedAchievements(username!));
-    if (userInfo && username === userInfo.username) {
-      dispatch(setProfile(userInfo));
-    } else {
-      dispatch(getUserProfile(username!));
-    }
-    dispatch(setLoading(false));
+    (async () => {
+      dispatch(setLoading(true));
+      await dispatch(getAchievementsAction());
+      await dispatch(getBalance());
+      await dispatch(getCompletedAchievements(username!));
+      if (userInfo && username === userInfo.username) {
+        await dispatch(setProfile(userInfo));
+      } else {
+        await dispatch(getUserProfile(username!));
+      }
+      await dispatch(setLoading(false));
+    })();
   }, [userInfo, username]);
 
   if (loading) {

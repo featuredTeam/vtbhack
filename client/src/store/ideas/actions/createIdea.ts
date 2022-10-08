@@ -2,6 +2,7 @@ import { UserInfo } from '../../auth/types/userInfo';
 import { AppDispatchType } from '../../store';
 import { axios } from '../../../utils/axiosInstance';
 import { IdeaStatus } from '../types/ideaType';
+import { getIdeas } from './getIdeas';
 
 export type CreateIdea = {
   user: UserInfo;
@@ -12,5 +13,6 @@ export type CreateIdea = {
 
 export const createIdea =
   (newIdea: CreateIdea) => async (dispatch: AppDispatchType) => {
-    const response = await axios.post('ideas', newIdea);
+    await axios.post('ideas', newIdea);
+    await dispatch(getIdeas());
   };
