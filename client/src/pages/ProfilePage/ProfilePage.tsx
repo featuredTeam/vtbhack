@@ -126,7 +126,7 @@ export const ProfilePage: React.FC = () => {
                   sx={{ width: '100%' }}
                   variant="outlined"
                 >
-                  Обмен
+                  Обмен на Digital Roubles
                 </Button>
               ) : (
                 <Button
@@ -136,7 +136,7 @@ export const ProfilePage: React.FC = () => {
                   }}
                   variant="outlined"
                 >
-                  Перевести
+                  Перевести монеты
                 </Button>
               )}
             </>

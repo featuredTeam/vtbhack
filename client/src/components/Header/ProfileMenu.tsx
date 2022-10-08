@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../store/store';
 import { logout } from '../../store/auth/authSlice';
 import { useAuth } from '../../store/auth/hooks/useAuth';
+import { axios } from '../../utils/axiosInstance';
 
 export const ProfileMenu: React.FC = () => {
   const navigate = useNavigate();
@@ -31,8 +32,9 @@ export const ProfileMenu: React.FC = () => {
     navigate(`/users/${userInfo!.username}/profile`);
   }, []);
 
-  const handleLogout = useCallback(() => {
+  const handleLogout = useCallback(async () => {
     handleCloseUserMenu();
+    await axios.post('/users/logout');
     dispatch(logout());
     navigate('/sign-in');
   }, []);

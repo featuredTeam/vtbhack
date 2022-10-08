@@ -10,6 +10,7 @@ import { getUserAction } from '../../store/auth/authSlice';
 import { CoursesPage } from '../../pages/CoursesPage/CoursesPage';
 import { ApprovedPage } from '../../pages/Ideas/ApprovedPage';
 import { NotApprovedPage } from '../../pages/Ideas/NotApprovedPage';
+import { MentorsPage } from '../../pages/Mentors/MentorsPage';
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -26,6 +27,7 @@ export const App: React.FC = () => {
           <Route path="sign-up" element={<SignUpPage />} />
           <Route path="users/:username/profile" element={<ProfilePage />} />
           <Route path="study/courses" element={<CoursesPage />} />
+          <Route path="study/mentoring" element={<MentorsPage />} />
           <Route path="ideas/approved" element={<ApprovedPage />} />
           <Route path="ideas/voting" element={<NotApprovedPage />} />
           <Route path="*" element={<div>Страница не найдена</div>} />

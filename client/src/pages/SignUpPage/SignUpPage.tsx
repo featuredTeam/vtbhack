@@ -41,7 +41,7 @@ export const SignUpPage: React.FC = () => {
     handleSubmit(async (data: SignupFormType) => {
       await axios.post('users/register', data);
 
-      const userInfo = await dispatch(getUserAction());
+      document.location.reload();
     }),
     [],
   );

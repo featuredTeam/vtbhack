@@ -5,6 +5,7 @@ import { authReducer } from './auth/authSlice';
 import { profileReducer } from './profile/profileSlice';
 import { coursesReducer } from './courses/coursesSlice';
 import { ideasReducer } from './ideas/ideasSlice';
+import { mentoringReducer } from './mentoring/mentoringSlice';
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     profile: profileReducer,
     courses: coursesReducer,
     ideas: ideasReducer,
+    mentoring: mentoringReducer,
   },
 });
 
