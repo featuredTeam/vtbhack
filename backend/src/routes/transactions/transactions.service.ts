@@ -31,9 +31,15 @@ export class TransactionsService {
     await this.vtbService.transform(user.privateKey, amount);
   }
 
-  public async give(username: string, amount: number): Promise<void> {
+  public async giveRubles(username: string, amount: number): Promise<void> {
     const user = await this.usersService.get(username);
     if (!user) throw new NotFoundException();
     await this.vtbService.giveRubles(user.publicKey, amount);
+  }
+
+  public async giveMatic(username: string, amount: number): Promise<void> {
+    const user = await this.usersService.get(username);
+    if (!user) throw new NotFoundException();
+    await this.vtbService.giveMatic(user.publicKey, amount);
   }
 }

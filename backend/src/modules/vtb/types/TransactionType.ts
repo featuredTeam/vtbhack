@@ -1,3 +1,3 @@
 export type TransactionType = {
-  transactionHash: string;
+  transaction: string;
 };

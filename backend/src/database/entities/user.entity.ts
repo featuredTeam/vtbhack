@@ -27,9 +27,6 @@ export class UserEntity extends BaseEntity {
   @IsString()
   public privateKey: string;
 
-  @ManyToMany(() => AchievementEntity, (achievement) => achievement.users)
-  public achievements: AchievementEntity[];
-
   @OneToMany(() => UserRoleEntity, (role) => role.user, { eager: true })
   @IsArray()
   public roles: UserRoleEntity[];

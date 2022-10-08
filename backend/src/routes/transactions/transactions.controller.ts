@@ -40,8 +40,15 @@ export class TransactionsController {
 
   @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
-  @Post('give')
-  async give(@Body() { to, amount }: EnrollementDto): Promise<void> {
-    await this.transactionsService.give(to, amount);
+  @Post('giveRubles')
+  async giveRubles(@Body() { to, amount }: EnrollementDto): Promise<void> {
+    await this.transactionsService.giveRubles(to, amount);
+  }
+
+  @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @Post('giveMatic')
+  async giveMatic(@Body() { to, amount }: EnrollementDto): Promise<void> {
+    await this.transactionsService.giveMatic(to, amount);
   }
 }

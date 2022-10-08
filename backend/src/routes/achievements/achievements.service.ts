@@ -38,19 +38,13 @@ export class AchievementsService {
   public async give(username: string, id: number): Promise<void> {
     const achievement = await this.achievementsRepository.findOne({
       where: { id },
-      relations: { users: true },
     });
     if (!achievement) throw new NotFoundException();
+
     const user = await this.usersService.get(username);
     if (!user) throw new NotFoundException();
 
-    if (achievement.users.find((user) => user.username === username))
-      throw new ConflictException();
-
-    achievement.users.push(user);
-
-    await this.achievementsRepository.save(achievement);
-
+    await this.vtbService.giveNFT(user.publicKey, String(achievement.id));
     await this.vtbService.giveRubles(user.publicKey, achievement.reward);
   }
 }

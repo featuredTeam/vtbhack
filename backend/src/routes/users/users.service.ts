@@ -1,6 +1,6 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { UserRole } from '../../../../common/constants/UserRole';
 import { AchievementEntity } from '../../database/entities/achievement.entity';
 import { UserEntity } from '../../database/entities/user.entity';
@@ -16,6 +16,8 @@ export class UsersService {
     private readonly usersRepository: Repository<UserEntity>,
     @InjectRepository(UserRoleEntity)
     private readonly userRolesRepository: Repository<UserRoleEntity>,
+    @InjectRepository(AchievementEntity)
+    private readonly achievementRepository: Repository<AchievementEntity>,
     private readonly vtbService: VtbService,
   ) {}
 
@@ -87,9 +89,16 @@ export class UsersService {
       where: {
         username,
       },
-      relations: ['achievements'],
     });
 
-    return user.achievements;
+    const { balance } = await this.vtbService.getNFTbalance(user.publicKey);
+
+    const achievements = balance.map((nft) => nft.URI);
+
+    return await this.achievementRepository.find({
+      where: {
+        id: In(achievements),
+      },
+    });
   }
 }
