@@ -1,17 +1,18 @@
+import { IsBoolean } from 'class-validator';
 import { Column, Entity, ManyToOne } from 'typeorm';
 import { IdeaEntity } from './idea.entity';
 import { BaseEntity } from './types/BaseEntity';
-import { IdeaWorkerStatus } from './types/IdeaWorkerStatus';
 import { UserEntity } from './user.entity';
 
 @Entity()
-export class IdeaWorkerEntity extends BaseEntity {
+export class IdeaUserEntity extends BaseEntity {
   @ManyToOne(() => UserEntity, (user) => user.id)
-  public user_id: UserEntity;
+  public user: UserEntity;
 
   @ManyToOne(() => IdeaEntity, (idea) => idea.id)
-  public idea_id: IdeaEntity;
+  public idea: IdeaEntity;
 
   @Column()
-  public status: IdeaWorkerStatus;
+  @IsBoolean()
+  public score: boolean;
 }

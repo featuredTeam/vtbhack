@@ -76,7 +76,7 @@ export class CoursesService {
     });
     if (!foundCourse) throw new NotFoundException();
 
-    await this.coursesRepository.delete(foundCourse);
+    await this.coursesRepository.delete(id);
   }
 
   public async enroll(user: UserEntity, id: number): Promise<void> {
@@ -101,7 +101,6 @@ export class CoursesService {
     const courseUser = coursesByUser.find(
       (courseUser) => courseUser.course.id === id,
     );
-    console.log(coursesByUser);
     if (courseUser) throw new ConflictException();
 
     await this.coursesUsersRepository.save({

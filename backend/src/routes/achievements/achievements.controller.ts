@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AchievementEntity } from '../../database/entities/achievement.entity';
+import { IdDto } from '../../types/id.dto';
 import { AchievementsService } from './achievements.service';
 import { GiveAchievementDto } from './dto/giveAchievement.dto';
 
@@ -31,8 +32,8 @@ export class AchievementsController {
 
   @HttpCode(HttpStatus.OK)
   @Delete()
-  async delete(@Body() achievement: AchievementEntity): Promise<void> {
-    await this.achievementsService.delete(achievement);
+  async delete(@Body() { id }: IdDto): Promise<void> {
+    await this.achievementsService.delete(id);
   }
 
   @HttpCode(HttpStatus.OK)

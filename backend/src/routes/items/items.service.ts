@@ -43,7 +43,7 @@ export class ItemsService {
     });
     if (!foundItem) throw new NotFoundException();
 
-    await this.itemsRepository.delete(foundItem);
+    await this.itemsRepository.delete(id);
   }
 
   public async buy(user: UserEntity, id: number): Promise<void> {

@@ -11,9 +11,9 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import { ItemsService } from './items.service';
 import { UserEntity } from '../../database/entities/user.entity';
-import { ItemDto } from './dto/item.dto';
 import { AuthGuard } from '../../guards/auth.guard';
 import { ItemEntity } from '../../database/entities/item.entity';
+import { IdDto } from '../../types/id.dto';
 
 @ApiTags('items')
 @Controller('items')
@@ -28,22 +28,21 @@ export class ItemsController {
 
   @HttpCode(HttpStatus.OK)
   @Delete()
-  async delete(@Body() { id }: ItemDto): Promise<void> {
+  async delete(@Body() { id }: IdDto): Promise<void> {
     await this.itemsService.delete(id);
   }
 
-  @HttpCode(HttpStatus.OK)
   @Get()
-  async get(@Body('user') user: UserEntity): Promise<ItemEntity[]> {
+  async get(): Promise<ItemEntity[]> {
     return await this.itemsService.getAll();
   }
 
   @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
   @Post('buy')
-  async enroll(
+  async buy(
     @Body('user') user: UserEntity,
-    @Body() { id }: ItemDto,
+    @Body() { id }: IdDto,
   ): Promise<void> {
     await this.itemsService.buy(user, id);
   }

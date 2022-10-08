@@ -1,4 +1,4 @@
-import { IsNumber } from 'class-validator';
+import { IsNumber, IsOptional } from 'class-validator';
 import {
   CreateDateColumn,
   PrimaryGeneratedColumn,
@@ -7,6 +7,8 @@ import {
 
 export class BaseEntity {
   @PrimaryGeneratedColumn()
+  @IsNumber()
+  @IsOptional()
   id: number;
 
   @CreateDateColumn({
