@@ -11,6 +11,7 @@ import { CoursesPage } from '../../pages/CoursesPage/CoursesPage';
 import { ApprovedPage } from '../../pages/Ideas/ApprovedPage';
 import { NotApprovedPage } from '../../pages/Ideas/NotApprovedPage';
 import { MentorsPage } from '../../pages/Mentors/MentorsPage';
+import { MarketPlacePage } from '../../pages/MarketPlacePage/MarketPlacePage';
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -25,6 +26,7 @@ export const App: React.FC = () => {
         <Routes>
           <Route path="sign-in" element={<SignInPage />} />
           <Route path="sign-up" element={<SignUpPage />} />
+          <Route path="marketplace" element={<MarketPlacePage />} />
           <Route path="users/:username/profile" element={<ProfilePage />} />
           <Route path="study/courses" element={<CoursesPage />} />
           <Route path="study/mentoring" element={<MentorsPage />} />

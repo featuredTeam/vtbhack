@@ -80,7 +80,6 @@ export const SignUpPage: React.FC = () => {
             })}
             placeholder="Введите имя пользователя..."
           />
-          <TextField type="password" placeholder="Введите пароль..." />
           <Stack display="flex" justifyContent="space-between" direction="row">
             <Button variant="text" onClick={handleToSignIn}>
               <Typography textTransform="none" fontSize="1em">

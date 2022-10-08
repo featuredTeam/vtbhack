@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { authReducer } from './auth/authSlice';
 import { profileReducer } from './profile/profileSlice';
 import { coursesReducer } from './courses/coursesSlice';
+import { itemsReducer } from './items/itemsSlice';
 import { ideasReducer } from './ideas/ideasSlice';
 import { mentoringReducer } from './mentoring/mentoringSlice';
 
@@ -12,6 +13,7 @@ const store = configureStore({
     auth: authReducer,
     profile: profileReducer,
     courses: coursesReducer,
+    items: itemsReducer,
     ideas: ideasReducer,
     mentoring: mentoringReducer,
   },
