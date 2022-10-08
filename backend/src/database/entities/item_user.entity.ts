@@ -1,7 +1,7 @@
+import { IsString } from 'class-validator';
 import { Column, Entity, ManyToOne } from 'typeorm';
 import { ItemEntity } from './item.entity';
 import { BaseEntity } from './types/BaseEntity';
-import { IdeaStatus } from './types/IdeaStatus';
 import { UserEntity } from './user.entity';
 
 @Entity()
@@ -12,6 +12,7 @@ export class ItemUserEntity extends BaseEntity {
   @ManyToOne(() => ItemEntity, (item) => item.id)
   public item_id: ItemEntity;
 
-  @Column()
+  @Column({ default: 'address' })
+  @IsString()
   public data: string;
 }

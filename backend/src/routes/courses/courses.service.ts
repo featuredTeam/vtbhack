@@ -68,10 +68,10 @@ export class CoursesService {
     return newCourses;
   }
 
-  public async delete(name: string): Promise<void> {
+  public async delete(id: number): Promise<void> {
     const foundCourse = await this.coursesRepository.findOne({
       where: {
-        name,
+        id,
       },
     });
     if (!foundCourse) throw new NotFoundException();
