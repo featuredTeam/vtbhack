@@ -56,12 +56,12 @@ export const ProfilePage: React.FC = () => {
 
   useEffect(() => {
     dispatch(setLoading(true));
+    dispatch(getAchievementsAction());
+    dispatch(getCompletedAchievements(username!));
     if (userInfo && username === userInfo.username) {
       dispatch(setProfile(userInfo));
     } else {
       dispatch(getUserProfile(username!));
-      dispatch(getAchievementsAction());
-      dispatch(getCompletedAchievements(username!));
     }
     dispatch(setLoading(false));
   }, [userInfo, username]);
@@ -174,25 +174,32 @@ export const ProfilePage: React.FC = () => {
       <Dialog open={achievePickOpened}>
         <DialogTitle>Какое достижение открыть?</DialogTitle>
         <DialogContent>
-          {achievements.map((achievement) => (
-            <Button
-              sx={{ textTransform: 'none' }}
-              onClick={() => {
-                setAchievePickOpened(false);
-                dispatch(giveAchievementAction(achievement.id, username!));
-              }}
-            >
-              <Achievement
-                {...achievement}
-                completed={
-                  !!completedAchievements.find(
-                    ({ id }) => achievement.id === id,
-                  )
-                }
-              />
-            </Button>
-          ))}
+          {achievements
+            .filter(
+              ({ id }) => !completedAchievements.find((ach) => ach.id === id),
+            )
+            .map((achievement) => (
+              <Button
+                sx={{ textTransform: 'none' }}
+                onClick={() => {
+                  setAchievePickOpened(false);
+                  dispatch(giveAchievementAction(achievement.id, username!));
+                }}
+              >
+                <Achievement
+                  {...achievement}
+                  completed={
+                    !!completedAchievements.find(
+                      ({ id }) => achievement.id === id,
+                    )
+                  }
+                />
+              </Button>
+            ))}
         </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setAchievePickOpened(false)}>Отмена</Button>
+        </DialogActions>
       </Dialog>
       <Dialog
         open={dialogOpened}

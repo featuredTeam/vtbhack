@@ -9,8 +9,5 @@ export type UserInfo = {
 };
 
 export enum Role {
-  Director,
-  Moderator,
-  Mentor,
-  Admin,
+  Admin = 'admin',
 }
