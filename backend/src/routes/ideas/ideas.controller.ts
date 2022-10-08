@@ -59,30 +59,21 @@ export class IdeasController {
   @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
   @Post('decline')
-  async decline(
-    @Body('user') user: UserEntity,
-    @Body() { id }: IdDto,
-  ): Promise<void> {
+  async decline(@Body() { id }: IdDto): Promise<void> {
     await this.ideasService.setStatus(id, IdeaStatus.Declined);
   }
 
   @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
-  @Post('inprogress')
-  async takeInProgress(
-    @Body('user') user: UserEntity,
-    @Body() { id }: IdDto,
-  ): Promise<void> {
-    await this.ideasService.setStatus(id, IdeaStatus.InProgress);
+  @Post('approved')
+  async approve(@Body() { id }: IdDto): Promise<void> {
+    await this.ideasService.setStatus(id, IdeaStatus.Approved);
   }
 
   @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
   @Post('complete')
-  async complete(
-    @Body('user') user: UserEntity,
-    @Body() { id }: IdDto,
-  ): Promise<void> {
+  async complete(@Body() { id }: IdDto): Promise<void> {
     await this.ideasService.setStatus(id, IdeaStatus.Completed);
   }
 }

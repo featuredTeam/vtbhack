@@ -1,6 +1,6 @@
 export enum IdeaStatus {
   Created = 'created',
-  InProgress = 'inprogress',
+  Approved = 'approved',
   Declined = 'declined',
   Completed = 'completed',
 }
