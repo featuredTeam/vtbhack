@@ -1,18 +1,16 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import {
-  FastifyAdapter,
-  NestFastifyApplication,
-} from '@nestjs/platform-fastify';
+import * as cookieParser from 'cookie-parser';
+
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { ProjectName } from '../../common/ProjectName';
+import { UserMiddleware } from './ middlewares/user.middleware';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestFastifyApplication>(
-    AppModule,
-    new FastifyAdapter(),
-  );
+  const app = await NestFactory.create(AppModule, { cors: true });
+
+  app.use(cookieParser());
 
   app.useGlobalPipes(
     new ValidationPipe({
