@@ -61,7 +61,6 @@ export const SignInPage: React.FC = () => {
             })}
             placeholder="Введите имя пользователя..."
           />
-          <TextField placeholder="Введите пароль..." />
           <Stack display="flex" justifyContent="space-between" direction="row">
             <Button variant="text" onClick={handleToSignUp}>
               <Typography textTransform="none" fontSize="1em">
