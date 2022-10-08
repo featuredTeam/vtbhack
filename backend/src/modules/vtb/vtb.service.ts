@@ -1,6 +1,8 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { vtbAxios } from './constants/vtbAxios';
 import { BalanceType } from './types/BalanceType';
+import { TransactionStatusType } from './types/TransactionStatusType';
+import { TransactionType } from './types/TransactionType';
 import { WalletType } from './types/WalletType';
 
 @Injectable()
@@ -30,40 +32,74 @@ export class VtbService {
     return data;
   }
 
-  public async giveMatic(publicKey: string, amount: number): Promise<void> {
-    const { data } = await vtbAxios.post(`/v1/transfers/matic`, {
-      fromPrivateKey: this.privateKey,
-      toPublicKey: publicKey,
-      amount,
-    });
+  public async getTransactionStatus(
+    transactionHash: string,
+  ): Promise<TransactionStatusType> {
+    const { data } = await vtbAxios.get<TransactionStatusType>(
+      `/v1/transfers/status/${transactionHash}`,
+    );
+    return data;
   }
 
-  public async giveRubles(publicKey: string, amount: number): Promise<void> {
-    const { data } = await vtbAxios.post(`/v1/transfers/ruble`, {
-      fromPrivateKey: this.privateKey,
-      toPublicKey: publicKey,
-      amount: amount,
-    });
+  public async giveMatic(
+    publicKey: string,
+    amount: number,
+  ): Promise<TransactionType> {
+    const { data } = await vtbAxios.post<TransactionType>(
+      `/v1/transfers/matic`,
+      {
+        fromPrivateKey: this.privateKey,
+        toPublicKey: publicKey,
+        amount,
+      },
+    );
+    return data;
+  }
+
+  public async giveRubles(
+    publicKey: string,
+    amount: number,
+  ): Promise<TransactionType> {
+    const { data } = await vtbAxios.post<TransactionType>(
+      `/v1/transfers/ruble`,
+      {
+        fromPrivateKey: this.privateKey,
+        toPublicKey: publicKey,
+        amount: amount,
+      },
+    );
+    return data;
   }
 
   public async send(
     privateKey: string,
     publicKey: string,
     amount: number,
-  ): Promise<void> {
-    const { data } = await vtbAxios.post(`/v1/transfers/ruble`, {
-      fromPrivateKey: privateKey,
-      toPublicKey: publicKey,
-      amount,
-    });
-    console.log(data);
+  ): Promise<TransactionType> {
+    const { data } = await vtbAxios.post<TransactionType>(
+      `/v1/transfers/ruble`,
+      {
+        fromPrivateKey: privateKey,
+        toPublicKey: publicKey,
+        amount,
+      },
+    );
+    return data;
   }
 
-  public async transform(privateKey: string, amount: number): Promise<void> {
-    const { data } = await vtbAxios.post(`/v1/transfers/ruble`, {
-      fromPrivateKey: privateKey,
-      toPublicKey: this.publicKey,
-      amount,
-    });
+  public async transform(
+    privateKey: string,
+    amount: number,
+  ): Promise<TransactionType> {
+    const { data } = await vtbAxios.post<TransactionType>(
+      `/v1/transfers/ruble`,
+      {
+        fromPrivateKey: privateKey,
+        toPublicKey: this.publicKey,
+        amount,
+      },
+    );
+
+    return data;
   }
 }

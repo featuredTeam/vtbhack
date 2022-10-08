@@ -7,10 +7,10 @@ import { UserEntity } from './user.entity';
 @Entity()
 export class ItemUserEntity extends BaseEntity {
   @ManyToOne(() => UserEntity, (user) => user.id)
-  public user_id: UserEntity;
+  public user: UserEntity;
 
   @ManyToOne(() => ItemEntity, (item) => item.id)
-  public item_id: ItemEntity;
+  public item: ItemEntity;
 
   @Column({ default: 'address' })
   @IsString()

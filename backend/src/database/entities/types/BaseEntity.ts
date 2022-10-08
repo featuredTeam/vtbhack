@@ -6,7 +6,6 @@ import {
 } from 'typeorm';
 
 export class BaseEntity {
-  @IsNumber()
   @PrimaryGeneratedColumn()
   id: number;
 
