@@ -13,6 +13,7 @@ import { TransactionsModule } from './routes/transactions/transactions.module';
 import { CoursesModule } from './routes/courses/courses.module';
 import { ItemsModule } from './routes/items/items.module';
 import { IdeasModule } from './routes/ideas/ideas.module';
+import { MentorsModule } from './routes/mentors/mentors.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { IdeasModule } from './routes/ideas/ideas.module';
     TransactionsModule,
     CoursesModule,
     ItemsModule,
+    MentorsModule,
     IdeasModule,
     VtbModule,
   ],

@@ -27,7 +27,7 @@ export class IdeaEntity extends BaseEntity {
   @IsNotEmpty()
   public description: string;
 
-  @Column()
+  @Column('float')
   @IsNumber()
   @IsPositive()
   public amount: number;

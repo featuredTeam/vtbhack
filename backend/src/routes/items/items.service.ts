@@ -35,6 +35,21 @@ export class ItemsService {
     return await this.itemsRepository.find();
   }
 
+  public async getByUser(user: UserEntity): Promise<ItemEntity[]> {
+    const itemUser = await this.itemsUsersRepository.find({
+      where: {
+        user: {
+          id: user.id,
+        },
+      },
+      relations: {
+        user: true,
+      },
+    });
+
+    return itemUser.map((itemUser) => itemUser.item);
+  }
+
   public async delete(id: number): Promise<void> {
     const foundItem = await this.itemsRepository.findOne({
       where: {

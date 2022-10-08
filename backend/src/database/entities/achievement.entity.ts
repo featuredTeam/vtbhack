@@ -19,6 +19,17 @@ export class AchievementEntity extends BaseEntity {
   public name: string;
 
   @Column()
+  @IsString()
+  @IsNotEmpty()
+  public description: string;
+
+  @Column({ nullable: true, default: null })
+  @IsString()
+  @IsNotEmpty()
+  @IsOptional()
+  public image?: string | null;
+
+  @Column('float')
   @IsNumber()
   @IsPositive()
   public reward: number;

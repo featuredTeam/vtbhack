@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { Column, Entity } from 'typeorm';
 import { BaseEntity } from './types/BaseEntity';
 
@@ -13,6 +13,12 @@ export class CourseEntity extends BaseEntity {
   @IsString()
   @IsNotEmpty()
   public link: string;
+
+  @Column({ nullable: true, default: null })
+  @IsString()
+  @IsNotEmpty()
+  @IsOptional()
+  public image?: string | null;
 
   @Column({ default: false })
   @IsBoolean()

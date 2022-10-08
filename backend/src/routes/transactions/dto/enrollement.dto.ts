@@ -5,7 +5,6 @@ export class EnrollementDto {
   @IsString()
   to: string;
 
-  @Column()
   @IsNumber()
   @IsPositive()
   public amount: number;
