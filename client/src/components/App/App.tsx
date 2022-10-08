@@ -8,6 +8,7 @@ import { ProfilePage } from '../../pages/ProfilePage/ProfilePage';
 import { useAppDispatch } from '../../store/store';
 import { getUserAction } from '../../store/auth/authSlice';
 import { CoursesPage } from '../../pages/CoursesPage/CoursesPage';
+import { MarketPlacePage } from '../../pages/MarketPlacePage/MarketPlacePage';
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -22,6 +23,7 @@ export const App: React.FC = () => {
         <Routes>
           <Route path="sign-in" element={<SignInPage />} />
           <Route path="sign-up" element={<SignUpPage />} />
+          <Route path="marketplace" element={<MarketPlacePage />} />
           <Route path="users/:username/profile" element={<ProfilePage />} />
           <Route path="study/courses" element={<CoursesPage />} />
           <Route path="*" element={<div>Страница не найдена</div>} />

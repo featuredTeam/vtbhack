@@ -4,12 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { authReducer } from './auth/authSlice';
 import { profileReducer } from './profile/profileSlice';
 import { coursesReducer } from './courses/coursesSlice';
+import { itemsReducer } from './items/itemsSlice';
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     profile: profileReducer,
     courses: coursesReducer,
+    items: itemsReducer,
   },
 });
 

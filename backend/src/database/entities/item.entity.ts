@@ -16,6 +16,11 @@ export class ItemEntity extends BaseEntity {
   @IsNotEmpty()
   public name: string;
 
+  @Column()
+  @IsString()
+  @IsNotEmpty()
+  public image: string;
+
   @Column('float')
   @IsNumber()
   @IsPositive()
