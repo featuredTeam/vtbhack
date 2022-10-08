@@ -19,9 +19,9 @@ export const Logo: React.FC = () => {
       <g
         id="vtb_ru"
         stroke="none"
-        stroke-width="1"
+        strokeWidth="1"
         fill="none"
-        fill-rule="evenodd"
+        fillRule="evenodd"
       >
         <g id="Group-6">
           <g id="Group-Copy">

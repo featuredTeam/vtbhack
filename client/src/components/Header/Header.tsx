@@ -6,59 +6,66 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import MenuIcon from '@mui/icons-material/Menu';
-import AdbIcon from '@mui/icons-material/Adb';
 import { Logo } from '../Logo/Logo';
-
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+import { useAuth } from '../../store/auth/hooks/useAuth';
+import { ProfileMenu } from './ProfileMenu';
+import { LoginSignup } from './LoginSignup';
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
+import { ArrowDropDown } from '@mui/icons-material';
+import { Spacer } from '../common/Spacer';
 
 export const Header = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
+  const navigate = useNavigate();
+
+  const [anchorIdeas, setAnchorIdeas] = React.useState<null | HTMLElement>(
     null,
   );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
+  const handleOpenIdeasMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorIdeas(event.currentTarget);
+  };
+
+  const handleCloseIdeasMenu = () => {
+    setAnchorIdeas(null);
+  };
+
+  const [anchorStudy, setAnchorStudy] = React.useState<null | HTMLElement>(
     null,
   );
-
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
+  const handleOpenStudyMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorStudy(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+  const handleCloseStudyMenu = () => {
+    setAnchorStudy(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  const { isAuthorized } = useAuth();
 
   return (
     <AppBar position="sticky">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Logo />
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
+          <Spacer width="40px" />
+          <Box sx={{ flexGrow: 1, display: 'flex' }}>
+            <Button onClick={() => navigate('/marketplace')}>
+              <Typography color="white" textAlign="center">
+                Маркетплейс
+              </Typography>
+            </Button>
+            <Spacer width="20px" />
+            <Button onClick={handleOpenIdeasMenu}>
+              <Typography color="white" textAlign="center">
+                Идеи
+              </Typography>
+              <ArrowDropDown sx={{ fill: 'white' }} />
+            </Button>
+            <Spacer width="20px" />
             <Menu
               id="menu-appbar"
-              anchorEl={anchorElNav}
+              anchorEl={anchorIdeas}
               anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'left',
@@ -68,60 +75,46 @@ export const Header = () => {
                 vertical: 'top',
                 horizontal: 'left',
               }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
+              open={Boolean(anchorIdeas)}
+              onClose={handleCloseIdeasMenu}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={() => navigate('/ideas/approved')}>
+                <Typography textAlign="center">Одобренные</Typography>
+              </MenuItem>
+              <MenuItem onClick={() => navigate('/ideas/voting')}>
+                <Typography textAlign="center">На рассмотрении</Typography>
+              </MenuItem>
             </Menu>
-          </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
+            <Button onClick={handleOpenStudyMenu}>
+              <Typography color="white" textAlign="center">
+                Обучение
+              </Typography>
+              <ArrowDropDown sx={{ fill: 'white' }} />
+            </Button>
             <Menu
-              sx={{ mt: '45px' }}
               id="menu-appbar"
-              anchorEl={anchorElUser}
+              anchorEl={anchorStudy}
               anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: 'bottom',
+                horizontal: 'left',
               }}
               keepMounted
               transformOrigin={{
                 vertical: 'top',
-                horizontal: 'right',
+                horizontal: 'left',
               }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
+              open={Boolean(anchorStudy)}
+              onClose={handleCloseStudyMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={() => navigate('/study/courses')}>
+                <Typography textAlign="center">Курсы</Typography>
+              </MenuItem>
+              <MenuItem onClick={() => navigate('/study/mentoring')}>
+                <Typography textAlign="center">Менторство</Typography>
+              </MenuItem>
             </Menu>
           </Box>
+          {isAuthorized ? <ProfileMenu /> : <LoginSignup />}
         </Toolbar>
       </Container>
     </AppBar>
