@@ -77,7 +77,7 @@ export class UsersController {
     return await this.usersService.addRole(username, role);
   }
 
-  @Post(':username/achievements')
+  @Get(':username/achievements')
   async achievements(
     @Param('username') username: string,
   ): Promise<AchievementEntity[]> {

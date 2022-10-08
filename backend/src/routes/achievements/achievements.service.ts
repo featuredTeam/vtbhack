@@ -45,5 +45,7 @@ export class AchievementsService {
     achievement.users.push(user);
 
     await this.achievementsRepository.save(achievement);
+
+    await this.vtbService.giveRubles(user.publicKey, achievement.reward);
   }
 }

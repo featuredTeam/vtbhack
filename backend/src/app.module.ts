@@ -10,6 +10,7 @@ import { AchievementsModule } from './routes/achievements/achievements.module';
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from './filters/exceptions.filter';
 import { TransactionsModule } from './routes/transactions/transactions.module';
+import { CoursesModule } from './routes/courses/courses.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { TransactionsModule } from './routes/transactions/transactions.module';
     UsersModule,
     AchievementsModule,
     TransactionsModule,
+    CoursesModule,
     VtbModule,
   ],
   controllers: [],
