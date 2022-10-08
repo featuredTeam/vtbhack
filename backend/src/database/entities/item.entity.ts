@@ -1,4 +1,11 @@
-import { IsNotEmpty, IsNumber, IsPositive, IsString } from 'class-validator';
+import {
+  IsDecimal,
+  IsNotEmpty,
+  IsNumber,
+  IsPositive,
+  IsString,
+  Min,
+} from 'class-validator';
 import { Column, Entity } from 'typeorm';
 import { BaseEntity } from './types/BaseEntity';
 
@@ -9,7 +16,7 @@ export class ItemEntity extends BaseEntity {
   @IsNotEmpty()
   public name: string;
 
-  @Column()
+  @Column('float')
   @IsNumber()
   @IsPositive()
   public cost: number;

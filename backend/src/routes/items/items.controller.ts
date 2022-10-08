@@ -46,4 +46,11 @@ export class ItemsController {
   ): Promise<void> {
     await this.itemsService.buy(user, id);
   }
+
+  @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @Post('my')
+  async getMyItems(@Body('user') user: UserEntity): Promise<ItemEntity[]> {
+    return await this.itemsService.getByUser(user);
+  }
 }
