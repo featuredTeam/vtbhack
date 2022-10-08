@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
@@ -6,10 +6,16 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-
-const settings = ['Профиль', 'Выйти'];
+import { UserAvatar } from '../Avatar/Avatar';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../store/store';
+import { logout } from '../../store/auth/authSlice';
+import { useAuth } from '../../store/auth/hooks/useAuth';
 
 export const ProfileMenu: React.FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { userInfo } = useAuth();
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null,
   );
@@ -20,11 +26,21 @@ export const ProfileMenu: React.FC = () => {
     setAnchorElUser(null);
   };
 
+  const handleNavigateToProfile = useCallback(() => {
+    handleCloseUserMenu();
+    navigate(`/users/${userInfo!.username}/profile`);
+  }, []);
+
+  const handleLogout = useCallback(() => {
+    handleCloseUserMenu();
+    dispatch(logout());
+  }, []);
+
   return (
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+          <UserAvatar />
         </IconButton>
       </Tooltip>
       <Menu
@@ -43,11 +59,14 @@ export const ProfileMenu: React.FC = () => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        {settings.map((setting) => (
-          <MenuItem key={setting} onClick={handleCloseUserMenu}>
-            <Typography textAlign="center">{setting}</Typography>
-          </MenuItem>
-        ))}
+        <MenuItem onClick={handleNavigateToProfile}>
+          <Typography textAlign="center">Профиль</Typography>
+        </MenuItem>
+        <MenuItem onClick={handleLogout}>
+          <Typography color={'error'} textAlign="center">
+            Выйти
+          </Typography>
+        </MenuItem>
       </Menu>
     </Box>
   );

@@ -2,8 +2,9 @@ export type UserInfo = {
   id: string;
   name: string;
   surname: string;
-  avatar: Buffer;
-  role: Role;
+  username: string;
+  avatar?: string;
+  roles: Role[];
   public_key: string;
   private_key: string;
 };

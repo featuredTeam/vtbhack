@@ -1,10 +1,9 @@
 // 3-rd part lib
-import { PayloadAction } from '@reduxjs/toolkit';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 // actions
 import { getUserAction } from './actions/getUser';
 // types
-import { UserInfo } from './types/userInfo';
+import { Role, UserInfo } from './types/userInfo';
 
 type StateType = {
   isAuthorized: boolean;
@@ -12,8 +11,16 @@ type StateType = {
 };
 
 const initialState: StateType = {
-  isAuthorized: false,
-  userInfo: null,
+  isAuthorized: true,
+  userInfo: {
+    id: '1',
+    name: 'Damir',
+    surname: 'Akhmetzyanov',
+    username: 'DamirAhm',
+    role: Role.Admin,
+    public_key: '',
+    private_key: '',
+  },
 };
 
 const authSlice = createSlice({

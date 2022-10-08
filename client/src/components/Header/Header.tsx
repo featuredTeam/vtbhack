@@ -56,7 +56,6 @@ export const Header = () => {
               </Typography>
             </Button>
             <Spacer width="20px" />
-
             <Button onClick={handleOpenIdeasMenu}>
               <Typography color="white" textAlign="center">
                 Идеи
