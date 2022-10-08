@@ -28,7 +28,11 @@ export class IdeasService {
   }
 
   public async getAll(): Promise<IdeaEntityWithScore[]> {
-    const ideas = await this.ideasRepository.find();
+    const ideas = await this.ideasRepository.find({
+      relations: {
+        user: true,
+      },
+    });
 
     return await Promise.all(
       ideas.map(async (idea) => {
