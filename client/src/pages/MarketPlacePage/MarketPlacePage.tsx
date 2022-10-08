@@ -2,19 +2,16 @@ import { useAuth } from '../../store/auth/hooks/useAuth';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import {
-
     setLoading,
     setProfile,
 } from '../../store/profile/profileSlice';
 import { useProfile } from '../../store/profile/hooks/useProfile';
 import {
-    Button,
     CircularProgress,
-
 } from '@mui/material';
-import { Spacer } from '../../components/common/Spacer';
 import { Stack } from '@mui/material';
-import { getItems } from '../../store/items/actions/getIdeas';
+import { getItems } from '../../store/items/actions/getItems';
+import { Item } from './Item';
 
 
 export const MarketPlacePage: React.FC = () => {
@@ -41,10 +38,6 @@ export const MarketPlacePage: React.FC = () => {
         return <CircularProgress />;
     }
 
-    const buyItem =(id: number) => {
-        console.log(id);
-    }
-
     return (
         <>
         {isAuthorized && <>Ваш баланс: {balance}</>        }
@@ -53,22 +46,8 @@ export const MarketPlacePage: React.FC = () => {
                 sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}
             >
                 {
-                    items?.map((item) => {
-                        return (<div>{item.name}
-                        {isAuthorized && (
-                            <Button
-                            onClick={() => {
-                              buyItem(item.id);
-                            }}
-                            sx={{ width: '100%' }}
-                            variant="outlined"
-                          >
-                            Купить
-                          </Button>
-                        )}</div>);
-                    })
+                    items?.map((item) => <Item key={item.id} item={item} />)
                 }
-                <Spacer width="50px" />
             </Stack>
         </>
     );

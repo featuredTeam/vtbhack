@@ -24,7 +24,7 @@ export const CoursesPage: React.FC = () => {
       <Spacer height="20px" />
       <Typography fontSize="2em">Курсы</Typography>
       {courses.map((course) => (
-        <Course {...course} />
+        <Course key={course.id} {...course} />
       ))}
     </>
   );
