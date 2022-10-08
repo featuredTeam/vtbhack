@@ -2,6 +2,7 @@ import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserRole } from '../../../../common/constants/UserRole';
+import { AchievementEntity } from '../../database/entities/achievement.entity';
 import { UserEntity } from '../../database/entities/user.entity';
 import { UserRoleEntity } from '../../database/entities/user_role.entity';
 import { BalanceType } from '../../modules/vtb/types/BalanceType';
@@ -21,7 +22,6 @@ export class UsersService {
   public async register({
     name,
     surname,
-    avatar,
     username,
   }: RegisterDto): Promise<void> {
     const foundUser = await this.usersRepository.findOne({
@@ -39,19 +39,28 @@ export class UsersService {
     this.usersRepository.save({
       name,
       surname,
-      avatar,
       username,
       publicKey,
       privateKey,
     });
   }
 
-  public async get(username: string): Promise<UserEntity> {
+  public async getUnsafe(username: string): Promise<UserEntity> {
     return await this.usersRepository.findOne({
       where: {
         username,
       },
     });
+  }
+
+  public async get(username: string): Promise<UserEntity> {
+    const user = await this.usersRepository.findOne({
+      where: {
+        username,
+      },
+    });
+    delete user.privateKey;
+    return user;
   }
 
   public async balance(username: string): Promise<BalanceType> {
@@ -75,5 +84,16 @@ export class UsersService {
       user,
       role,
     });
+  }
+
+  public async getAchievements(username: string): Promise<AchievementEntity[]> {
+    const user = await this.usersRepository.findOne({
+      where: {
+        username,
+      },
+      relations: ['achievements'],
+    });
+
+    return user.achievements;
   }
 }

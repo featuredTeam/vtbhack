@@ -6,6 +6,9 @@ import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './routes/users/users.module';
 import { VtbModule } from './modules/vtb/vtb.module';
 import { UserMiddleware } from './ middlewares/user.middleware';
+import { AchievementsModule } from './routes/achievements/achievements.module';
+import { APP_FILTER } from '@nestjs/core';
+import { AllExceptionsFilter } from './filters/exceptions.filter';
 
 @Module({
   imports: [
@@ -33,10 +36,16 @@ import { UserMiddleware } from './ middlewares/user.middleware';
       },
     }),
     UsersModule,
+    AchievementsModule,
     VtbModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilter,
+    },
+  ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer): void {

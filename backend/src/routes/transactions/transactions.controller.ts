@@ -1,0 +1,40 @@
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { UserEntity } from '../../database/entities/user.entity';
+import { AuthGuard } from '../../guards/auth.guard';
+import { EnrollementDto } from './dto/enrollement.dto';
+import { TransformDto } from './dto/transform.dto';
+import { TransactionsService } from './transactions.service';
+
+@ApiTags('transactions')
+@Controller('transactions')
+export class TransactionsController {
+  constructor(private readonly transactionsService: TransactionsService) {}
+
+  @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @Post()
+  async send(
+    @Body() { to, amount }: EnrollementDto,
+    @Body('user') user: UserEntity,
+  ): Promise<void> {
+    await this.transactionsService.send(user, to, amount);
+  }
+
+  @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @Post()
+  async transform(
+    @Body() { amount }: TransformDto,
+    @Body('user') user: UserEntity,
+  ): Promise<void> {
+    await this.transactionsService.tranform(user, amount);
+  }
+}

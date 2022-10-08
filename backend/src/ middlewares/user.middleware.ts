@@ -16,7 +16,6 @@ export class UserMiddleware implements NestMiddleware {
       where: { username: req.cookies.username || IsNull() },
       relations: ['roles'],
     });
-    console.log(user);
 
     req.body.user = user;
 

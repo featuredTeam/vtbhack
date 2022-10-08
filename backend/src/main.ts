@@ -1,11 +1,9 @@
-import { NestFactory } from '@nestjs/core';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
-
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import { ProjectName } from '../../common/ProjectName';
-import { UserMiddleware } from './ middlewares/user.middleware';
+import { AllExceptionsFilter } from './filters/exceptions.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
@@ -17,8 +15,6 @@ async function bootstrap() {
       whitelist: true,
     }),
   );
-
-  console.log(ProjectName);
 
   app.setGlobalPrefix('api');
 

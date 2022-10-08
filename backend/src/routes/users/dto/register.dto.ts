@@ -5,5 +5,4 @@ export class RegisterDto extends PickType(UserEntity, [
   'username',
   'name',
   'surname',
-  'avatar',
 ]) {}

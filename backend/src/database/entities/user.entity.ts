@@ -28,11 +28,6 @@ export class UserEntity extends BaseEntity {
   @Column()
   public surname: string;
 
-  @Column({ nullable: true, default: null })
-  @IsString()
-  @IsOptional()
-  public avatar?: string | null;
-
   @Column()
   @IsString()
   public publicKey: string;
@@ -44,7 +39,7 @@ export class UserEntity extends BaseEntity {
   @ManyToMany(() => AchievementEntity, (achievement) => achievement.users)
   public achievements: AchievementEntity[];
 
-  @OneToMany(() => UserRoleEntity, (role) => role.user)
+  @OneToMany(() => UserRoleEntity, (role) => role.user, { eager: true })
   @IsArray()
   public roles: UserRoleEntity[];
 

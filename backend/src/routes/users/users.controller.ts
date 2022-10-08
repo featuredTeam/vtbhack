@@ -5,7 +5,9 @@ import {
   HttpCode,
   HttpStatus,
   NotFoundException,
+  Param,
   Post,
+  Query,
   Res,
   UseGuards,
 } from '@nestjs/common';
@@ -18,6 +20,7 @@ import { Response } from 'express';
 import { BalanceType } from '../../modules/vtb/types/BalanceType';
 import { LoginDto } from './dto/login.dto';
 import { RoleDto } from './dto/role.dto';
+import { AchievementEntity } from '../../database/entities/achievement.entity';
 
 @ApiTags('users')
 @Controller('users')
@@ -51,6 +54,12 @@ export class UsersController {
   }
 
   @UseGuards(AuthGuard)
+  @Get(':username')
+  async get(@Param('username') username: string): Promise<UserEntity> {
+    return await this.usersService.get(username);
+  }
+
+  @UseGuards(AuthGuard)
   @Get('balance')
   async balance(@Body('user') user: UserEntity): Promise<BalanceType> {
     return await this.usersService.balance(user.username);
@@ -66,5 +75,12 @@ export class UsersController {
   @Post('role')
   async addRole(@Body() { username, role }: RoleDto): Promise<void> {
     return await this.usersService.addRole(username, role);
+  }
+
+  @Post(':username/achievements')
+  async achievements(
+    @Param('username') username: string,
+  ): Promise<AchievementEntity[]> {
+    return await this.usersService.getAchievements(username);
   }
 }
