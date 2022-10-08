@@ -38,7 +38,7 @@ export class AchievementsService {
   public async give(username: string, id: number): Promise<void> {
     const achievement = await this.achievementsRepository.findOne({
       where: { id },
-      relations: ['users'],
+      relations: { users: true },
     });
     if (!achievement) throw new NotFoundException();
     const user = await this.usersService.get(username);

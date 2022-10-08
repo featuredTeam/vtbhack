@@ -44,7 +44,7 @@ export class CoursesService {
 
     const coursesByUser = await this.coursesUsersRepository.find({
       where: {
-        user,
+        user: { id: user.id },
       },
       relations: {
         course: true,
@@ -88,19 +88,12 @@ export class CoursesService {
 
     if (!course) throw new NotFoundException();
 
-    const coursesByUser = await this.coursesUsersRepository.find({
+    const courseUser = await this.coursesUsersRepository.findOne({
       where: {
-        user,
-      },
-      relations: {
-        course: true,
-        user: true,
+        user: { id: user.id },
+        course: { id: course.id },
       },
     });
-
-    const courseUser = coursesByUser.find(
-      (courseUser) => courseUser.course.id === id,
-    );
     if (courseUser) throw new ConflictException();
 
     await this.coursesUsersRepository.save({
@@ -117,19 +110,13 @@ export class CoursesService {
       },
     });
 
-    const coursesByUser = await this.coursesUsersRepository.find({
+    const courseUser = await this.coursesUsersRepository.findOne({
       where: {
-        user,
-      },
-      relations: {
-        course: true,
-        user: true,
+        user: { id: user.id },
+        course: { id: course.id },
       },
     });
 
-    const courseUser = coursesByUser.find(
-      (courseUser) => courseUser.course.id === id,
-    );
     if (!courseUser) throw new NotFoundException();
 
     await this.coursesUsersRepository.update(
