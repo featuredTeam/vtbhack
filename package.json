@@ -16,8 +16,10 @@
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@mui/icons-material": "^5.10.6",
     "@mui/material": "^5.10.8",
-    "@mui/styled-engine-sc": "^5.10.6",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "2.2.0",
     "@nestjs/core": "^9.0.0",
@@ -25,6 +27,7 @@
     "@nestjs/serve-static": "3.0.0",
     "@nestjs/swagger": "6.1.2",
     "@nestjs/typeorm": "9.0.1",
+    "@reduxjs/toolkit": "^1.8.5",
     "axios": "1.1.0",
     "class-transformer": "0.5.1",
     "class-validator": "0.13.2",
@@ -33,10 +36,12 @@
     "mysql2": "2.3.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.37.0",
+    "react-redux": "^8.0.4",
+    "react-router-dom": "^6.4.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
-    "styled-components": "^5.3.6",
     "typeorm": "0.3.10"
   },
   "devDependencies": {
