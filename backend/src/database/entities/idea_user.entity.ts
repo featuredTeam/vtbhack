@@ -1,7 +1,8 @@
-import { IsBoolean } from 'class-validator';
+import { IsBoolean, IsEnum } from 'class-validator';
 import { Column, Entity, ManyToOne } from 'typeorm';
 import { IdeaEntity } from './idea.entity';
 import { BaseEntity } from './types/BaseEntity';
+import { ScoreType } from './types/ScoreType';
 import { UserEntity } from './user.entity';
 
 @Entity()
@@ -13,6 +14,6 @@ export class IdeaUserEntity extends BaseEntity {
   public idea: IdeaEntity;
 
   @Column()
-  @IsBoolean()
-  public score: boolean;
+  @IsEnum(ScoreType)
+  public score: ScoreType;
 }

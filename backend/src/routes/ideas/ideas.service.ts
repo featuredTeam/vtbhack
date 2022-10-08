@@ -8,6 +8,7 @@ import { Repository } from 'typeorm';
 import { IdeaEntity } from '../../database/entities/idea.entity';
 import { IdeaUserEntity } from '../../database/entities/idea_user.entity';
 import { IdeaStatus } from '../../database/entities/types/IdeaStatus';
+import { ScoreType } from '../../database/entities/types/ScoreType';
 import { UserEntity } from '../../database/entities/user.entity';
 import { VtbService } from '../../modules/vtb/vtb.service';
 import { IdeaEntityWithScore } from './types/IdeaEntityWithScore';
@@ -30,19 +31,16 @@ export class IdeasService {
     const ideas = await this.ideasRepository.find();
 
     return await Promise.all(
-      ideas.map(async (idea: IdeaEntity): Promise<IdeaEntityWithScore> => {
+      ideas.map(async (idea) => {
         const scoresByIdea = await this.ideasUsersRepository.find({
           where: {
-            idea,
-          },
-          relations: {
-            idea: true,
+            idea: { id: idea.id },
           },
         });
-        console.log(scoresByIdea);
 
         const score = scoresByIdea.reduce(
-          (prev, scoreIdea) => prev + (scoreIdea.score ? 1 : -1),
+          (prev, scoreIdea) =>
+            prev + (scoreIdea.score === ScoreType.Positive ? 1 : -1),
           0,
         );
 
@@ -68,7 +66,7 @@ export class IdeasService {
   public async score(
     user: UserEntity,
     id: number,
-    score: boolean,
+    score: ScoreType,
   ): Promise<void> {
     const idea = await this.ideasRepository.findOne({
       where: {
@@ -77,21 +75,14 @@ export class IdeasService {
     });
     if (!idea) throw new NotFoundException();
 
-    const scoresByUser = await this.ideasUsersRepository.find({
+    const scoreByUser = await this.ideasUsersRepository.findOne({
       where: {
-        user,
-      },
-      relations: {
-        user: true,
-        idea: true,
+        user: { id: user.id },
+        idea: { id: idea.id },
       },
     });
 
-    const scoreUser = await scoresByUser.find(
-      (scoreUser) => scoreUser.idea.id === idea.id,
-    );
-    if (scoreUser) throw new ConflictException('Already voted');
-
+    if (scoreByUser) throw new ConflictException('Already voted');
     await this.ideasUsersRepository.save({ user, idea, score });
   }
 

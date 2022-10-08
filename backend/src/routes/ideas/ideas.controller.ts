@@ -17,6 +17,8 @@ import { IdeaEntity } from '../../database/entities/idea.entity';
 import { IdeaStatus } from '../../database/entities/types/IdeaStatus';
 import { IdeaEntityWithScore } from './types/IdeaEntityWithScore';
 import { IdDto } from '../../types/id.dto';
+import { ScoreType } from '../../database/entities/types/ScoreType';
+import { ScoreDto } from './dto/score.dto';
 
 @ApiTags('ideas')
 @Controller('ideas')
@@ -49,8 +51,7 @@ export class IdeasController {
   @Post('score')
   async score(
     @Body('user') user: UserEntity,
-    @Body() { id }: IdDto,
-    @Query('score') score: boolean,
+    @Body() { id, score }: ScoreDto,
   ): Promise<void> {
     await this.ideasService.score(user, id, score);
   }
