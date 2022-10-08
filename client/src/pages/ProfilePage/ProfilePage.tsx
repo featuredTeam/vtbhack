@@ -99,6 +99,7 @@ export const ProfilePage: React.FC = () => {
 
   return (
     <>
+      <Spacer height="50px" />
       <Stack
         direction="row"
         sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}
