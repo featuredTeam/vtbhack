@@ -9,7 +9,6 @@ import { ItemEntity } from '../../database/entities/item.entity';
 import { ItemUserEntity } from '../../database/entities/item_user.entity';
 import { UserEntity } from '../../database/entities/user.entity';
 import { VtbService } from '../../modules/vtb/vtb.service';
-import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class ItemsService {
@@ -44,7 +43,7 @@ export class ItemsService {
     });
     if (!foundItem) throw new NotFoundException();
 
-    await this.itemsRepository.delete(foundItem);
+    await this.itemsRepository.delete(id);
   }
 
   public async buy(user: UserEntity, id: number): Promise<void> {
@@ -60,6 +59,22 @@ export class ItemsService {
     if (coinsAmount < item.cost)
       throw new ConflictException('Not enough money');
 
-    await this.vtbService.transform(user.privateKey, item.cost);
+    const { transactionHash } = await this.vtbService.transform(
+      user.privateKey,
+      item.cost,
+    );
+
+    const interval = setInterval(async () => {
+      try {
+        const { status } = await this.vtbService.getTransactionStatus(
+          transactionHash,
+        );
+        if (status === 'Pending') return;
+        clearInterval(interval);
+
+        if (status === 'Success')
+          await this.itemsUsersRepository.save({ user, item });
+      } catch {}
+    }, 1000);
   }
 }

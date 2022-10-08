@@ -11,6 +11,8 @@ import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from './filters/exceptions.filter';
 import { TransactionsModule } from './routes/transactions/transactions.module';
 import { CoursesModule } from './routes/courses/courses.module';
+import { ItemsModule } from './routes/items/items.module';
+import { IdeasModule } from './routes/ideas/ideas.module';
 
 @Module({
   imports: [
@@ -41,6 +43,8 @@ import { CoursesModule } from './routes/courses/courses.module';
     AchievementsModule,
     TransactionsModule,
     CoursesModule,
+    ItemsModule,
+    IdeasModule,
     VtbModule,
   ],
   controllers: [],

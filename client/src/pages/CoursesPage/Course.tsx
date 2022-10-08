@@ -48,7 +48,7 @@ export const Course: React.FC<CourseType> = ({
 
   return (
     <Card sx={{ width: 345, display: 'inline-block', marginRight: '20px' }}>
-      <CardActionArea onClick={() => navigate(link, { replace: true })}>
+      <CardActionArea onClick={() => (document.location = link)}>
         <CardMedia
           component="img"
           height="140"

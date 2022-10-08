@@ -26,8 +26,13 @@ export class AchievementsService {
     return await this.achievementsRepository.find();
   }
 
-  public async delete(achievement: AchievementEntity): Promise<void> {
-    await this.achievementsRepository.delete(achievement);
+  public async delete(id: number): Promise<void> {
+    const achievement = await this.achievementsRepository.findOne({
+      where: { id },
+    });
+    if (!achievement) throw new NotFoundException();
+
+    await this.achievementsRepository.delete(id);
   }
 
   public async give(username: string, id: number): Promise<void> {

@@ -1,10 +1,4 @@
-import {
-  IsBoolean,
-  IsNotEmpty,
-  IsNumber,
-  IsPositive,
-  IsString,
-} from 'class-validator';
+import { IsNotEmpty, IsNumber, IsPositive, IsString } from 'class-validator';
 import { Column, Entity } from 'typeorm';
 import { BaseEntity } from './types/BaseEntity';
 
@@ -19,8 +13,4 @@ export class ItemEntity extends BaseEntity {
   @IsNumber()
   @IsPositive()
   public cost: number;
-
-  @Column()
-  @IsBoolean()
-  public available: boolean;
 }

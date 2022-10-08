@@ -13,8 +13,8 @@ import { CoursesService } from './courses.service';
 import { CourseEntity } from '../../database/entities/course.entity';
 import { UserEntity } from '../../database/entities/user.entity';
 import { CourseEntityWithStatus } from './types/CourseEntityWithStatus';
-import { CourseDto } from './dto/course.dto';
 import { AuthGuard } from '../../guards/auth.guard';
+import { IdDto } from '../../types/id.dto';
 
 @ApiTags('courses')
 @Controller('courses')
@@ -29,11 +29,10 @@ export class CoursesController {
 
   @HttpCode(HttpStatus.OK)
   @Delete()
-  async delete(@Body() { id }: CourseDto): Promise<void> {
+  async delete(@Body() { id }: IdDto): Promise<void> {
     await this.coursesService.delete(id);
   }
 
-  @HttpCode(HttpStatus.OK)
   @Get()
   async get(
     @Body('user') user: UserEntity,
@@ -47,7 +46,7 @@ export class CoursesController {
   @Post('enroll')
   async enroll(
     @Body('user') user: UserEntity,
-    @Body() { id }: CourseDto,
+    @Body() { id }: IdDto,
   ): Promise<void> {
     await this.coursesService.enroll(user, id);
   }
@@ -57,7 +56,7 @@ export class CoursesController {
   @Post('finish')
   async finish(
     @Body('user') user: UserEntity,
-    @Body() { id }: CourseDto,
+    @Body() { id }: IdDto,
   ): Promise<void> {
     await this.coursesService.finish(user, id);
   }

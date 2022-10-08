@@ -1,4 +1,4 @@
-import { IsNumber } from 'class-validator';
+import { IsNumber, IsOptional } from 'class-validator';
 import {
   CreateDateColumn,
   PrimaryGeneratedColumn,
@@ -6,8 +6,9 @@ import {
 } from 'typeorm';
 
 export class BaseEntity {
-  @IsNumber()
   @PrimaryGeneratedColumn()
+  @IsNumber()
+  @IsOptional()
   id: number;
 
   @CreateDateColumn({
