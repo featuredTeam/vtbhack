@@ -43,7 +43,6 @@ export const NotApprovedPage: React.FC = () => {
   }
 
   const onSubmit = handleSubmit((data: any) => {
-    console.log(data);
     dispatch(createIdea(data));
     setDialogOpened(false);
     reset(DefaultValues);

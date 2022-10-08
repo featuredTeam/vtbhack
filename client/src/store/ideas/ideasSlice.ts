@@ -36,8 +36,29 @@ const ideasSlice = createSlice({
       state.notApproved.find(({ id }) => id === action.payload.id)!.score +=
         action.payload.score;
     },
+    approveIdea: (state, action: PayloadAction<{ id: number }>) => {
+      const approved = state.notApproved.find(
+        ({ id }) => id === action.payload.id,
+      );
+      state.notApproved = state.notApproved.filter(
+        ({ id }) => id !== action.payload.id,
+      );
+      state.approved.push(approved!);
+    },
+    declineIdea: (state, action: PayloadAction<{ id: number }>) => {
+      state.notApproved = state.notApproved.filter(
+        ({ id }) => id !== action.payload.id,
+      );
+    },
   },
 });
 
-export const { setIdeas, setLoading, voteIdea, addIdea } = ideasSlice.actions;
+export const {
+  setIdeas,
+  setLoading,
+  voteIdea,
+  addIdea,
+  declineIdea,
+  approveIdea,
+} = ideasSlice.actions;
 export const ideasReducer = ideasSlice.reducer;
