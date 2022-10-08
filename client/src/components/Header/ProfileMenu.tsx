@@ -34,6 +34,7 @@ export const ProfileMenu: React.FC = () => {
   const handleLogout = useCallback(() => {
     handleCloseUserMenu();
     dispatch(logout());
+    navigate('/sign-in');
   }, []);
 
   return (

@@ -1,14 +1,16 @@
 // 3-rd part lib
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IdeaType } from './types/ideaType';
+import { IdeaStatus, IdeaType } from './types/ideaType';
 
 type StateType = {
-  ideas: IdeaType[];
+  approved: IdeaType[];
+  notApproved: IdeaType[];
   loading: boolean;
 };
 
 const initialState: StateType = {
-  ideas: [],
+  approved: [],
+  notApproved: [],
   loading: false,
 };
 
@@ -20,18 +22,22 @@ const ideasSlice = createSlice({
       state.loading = action.payload;
     },
     setIdeas: (state, action: PayloadAction<IdeaType[]>) => {
-      state.ideas = action.payload;
+      state.approved = action.payload.filter(
+        (idea) => idea.status !== IdeaStatus.Created,
+      );
+      state.notApproved = action.payload.filter(
+        (idea) => idea.status === IdeaStatus.Created,
+      );
     },
     addIdea: (state, action: PayloadAction<IdeaType>) => {
-      state.ideas.push(action.payload);
+      state.notApproved.push(action.payload);
     },
     voteIdea: (state, action: PayloadAction<{ id: number; score: number }>) => {
-      state.ideas.find(({ id }) => id === action.payload.id)!.score +=
+      state.notApproved.find(({ id }) => id === action.payload.id)!.score +=
         action.payload.score;
     },
   },
 });
 
-export const { setIdeas, setLoading, voteIdea } = ideasSlice.actions;
-export const authReducer = ideasSlice.reducer;
-export {};
+export const { setIdeas, setLoading, voteIdea, addIdea } = ideasSlice.actions;
+export const ideasReducer = ideasSlice.reducer;
