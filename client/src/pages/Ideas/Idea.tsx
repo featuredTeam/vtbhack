@@ -56,7 +56,7 @@ export const Idea: React.FC<IdeaType> = ({
         position: 'relative',
       }}
     >
-      {userInfo && userInfo.roles.length && (
+      {userInfo && userInfo.roles.length > 0 && (
         <IconButton
           sx={{ position: 'absolute', top: '10px', right: '10px' }}
           onClick={handleOpenIdeasMenu}

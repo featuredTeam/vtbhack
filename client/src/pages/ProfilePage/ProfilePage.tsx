@@ -221,7 +221,10 @@ export const ProfilePage: React.FC = () => {
               : 'Сколько монет вы хотите обменять'}
           </DialogContentText>
           <Spacer height="20px" />
-          <TextField {...register('amount')} type="number" />
+          <TextField
+            {...register('amount', { valueAsNumber: true })}
+            type="number"
+          />
         </DialogContent>
         <DialogActions>
           <Button

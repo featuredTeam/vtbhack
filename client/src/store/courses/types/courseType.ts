@@ -3,6 +3,7 @@ export type CourseType = {
   name: string;
   link: string;
   required: string;
+  image: string;
   status?: CourseStatus;
 };
 

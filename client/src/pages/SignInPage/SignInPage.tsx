@@ -47,7 +47,7 @@ export const SignInPage: React.FC = () => {
     <form onSubmit={onSubmit}>
       <Box
         display="flex"
-        minHeight="90vh"
+        minHeight="70vh"
         alignItems="center"
         justifyContent="center"
       >

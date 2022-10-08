@@ -32,6 +32,7 @@ export const Course: React.FC<CourseType> = ({
   id,
   name,
   status,
+  image,
   link,
   required,
 }) => {
@@ -47,13 +48,16 @@ export const Course: React.FC<CourseType> = ({
   };
 
   return (
-    <Card sx={{ width: 345, display: 'inline-block', marginRight: '20px' }}>
+    <Card
+      sx={{
+        width: 345,
+        display: 'inline-block',
+        marginRight: '20px',
+        marginBottom: '20px',
+      }}
+    >
       <CardActionArea onClick={() => (document.location = link)}>
-        <CardMedia
-          component="img"
-          height="140"
-          sx={{ backgroundColor: 'blue' }}
-        />
+        <CardMedia component="img" height="140" src={image} />
         <CardContent>
           <Badge invisible={!required} badgeContent="Обяз." color="error">
             <Typography gutterBottom variant="h5" component="div">
