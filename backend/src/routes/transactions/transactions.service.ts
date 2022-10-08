@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { isDeepStrictEqual } from 'util';
 import { UserEntity } from '../../database/entities/user.entity';
 import { VtbService } from '../../modules/vtb/vtb.service';
 import { UsersService } from '../users/users.service';
@@ -17,6 +22,7 @@ export class TransactionsService {
   ): Promise<void> {
     const toUser = await this.usersService.get(to);
     if (!toUser) throw new NotFoundException();
+    if (toUser.username === from.username) throw new ConflictException();
 
     await this.vtbService.send(from.privateKey, toUser.publicKey, amount);
   }

@@ -19,6 +19,7 @@ export class VtbService {
 
   public async register(): Promise<WalletType> {
     const { data } = await vtbAxios.post<WalletType>('/v1/wallets/new');
+    await this.giveMatic(data.publicKey, 0.01);
     return data;
   }
 
@@ -33,7 +34,7 @@ export class VtbService {
     const { data } = await vtbAxios.post(`/v1/transfers/matic`, {
       fromPrivateKey: this.privateKey,
       toPublicKey: publicKey,
-      amount: 0.01,
+      amount,
     });
   }
 
@@ -41,7 +42,7 @@ export class VtbService {
     const { data } = await vtbAxios.post(`/v1/transfers/ruble`, {
       fromPrivateKey: this.privateKey,
       toPublicKey: publicKey,
-      amount: 0.01,
+      amount: amount,
     });
   }
 
@@ -55,6 +56,7 @@ export class VtbService {
       toPublicKey: publicKey,
       amount,
     });
+    console.log(data);
   }
 
   public async transform(privateKey: string, amount: number): Promise<void> {

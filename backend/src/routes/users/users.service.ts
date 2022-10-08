@@ -59,17 +59,13 @@ export class UsersService {
         username,
       },
     });
-    delete user.privateKey;
+    if (user) {
+      user.privateKey = undefined;
+    }
     return user;
   }
 
-  public async balance(username: string): Promise<BalanceType> {
-    const user = await this.usersRepository.findOne({
-      where: {
-        username,
-      },
-    });
-
+  public async balance(user: UserEntity): Promise<BalanceType> {
     return await this.vtbService.balance(user.publicKey);
   }
 

@@ -54,15 +54,15 @@ export class UsersController {
   }
 
   @UseGuards(AuthGuard)
-  @Get(':username')
-  async get(@Param('username') username: string): Promise<UserEntity> {
-    return await this.usersService.get(username);
+  @Get('balance')
+  async balance(@Body('user') user: UserEntity): Promise<BalanceType> {
+    return await this.usersService.balance(user);
   }
 
   @UseGuards(AuthGuard)
-  @Get('balance')
-  async balance(@Body('user') user: UserEntity): Promise<BalanceType> {
-    return await this.usersService.balance(user.username);
+  @Get(':username')
+  async get(@Param('username') username: string): Promise<UserEntity> {
+    return await this.usersService.get(username);
   }
 
   @HttpCode(HttpStatus.OK)

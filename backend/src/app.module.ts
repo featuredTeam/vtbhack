@@ -9,6 +9,7 @@ import { UserMiddleware } from './ middlewares/user.middleware';
 import { AchievementsModule } from './routes/achievements/achievements.module';
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from './filters/exceptions.filter';
+import { TransactionsModule } from './routes/transactions/transactions.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { AllExceptionsFilter } from './filters/exceptions.filter';
     }),
     UsersModule,
     AchievementsModule,
+    TransactionsModule,
     VtbModule,
   ],
   controllers: [],
