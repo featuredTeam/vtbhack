@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { Paper, Stack, TextField, Typography } from '@mui/material';
 import { Spacer } from '../../components/common/Spacer';
@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import { axios } from '../../utils/axiosInstance';
 import { useAppDispatch } from '../../store/store';
 import { getUserAction } from '../../store/auth/authSlice';
+import { useAuth } from '../../store/auth/hooks/useAuth';
 
 type LoginFormType = {
   username: string;
@@ -16,11 +17,18 @@ type LoginFormType = {
 export const SignInPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { userInfo } = useAuth();
   const { register, handleSubmit } = useForm({
     defaultValues: {
       username: '',
     },
   });
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate(`/users/${userInfo.username}/profile`);
+    }
+  }, [userInfo]);
 
   const handleToSignUp = useCallback(() => {
     navigate('/sign-up');

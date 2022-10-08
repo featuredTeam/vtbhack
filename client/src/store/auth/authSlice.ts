@@ -11,16 +11,8 @@ type StateType = {
 };
 
 const initialState: StateType = {
-  isAuthorized: true,
-  userInfo: {
-    id: '1',
-    name: 'Damir',
-    surname: 'Akhmetzyanov',
-    username: 'DamirAhm',
-    role: Role.Admin,
-    public_key: '',
-    private_key: '',
-  },
+  isAuthorized: false,
+  userInfo: null,
 };
 
 const authSlice = createSlice({

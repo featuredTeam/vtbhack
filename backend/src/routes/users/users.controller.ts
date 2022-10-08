@@ -59,12 +59,6 @@ export class UsersController {
     return await this.usersService.balance(user);
   }
 
-  @UseGuards(AuthGuard)
-  @Get(':username')
-  async get(@Param('username') username: string): Promise<UserEntity> {
-    return await this.usersService.get(username);
-  }
-
   @HttpCode(HttpStatus.OK)
   @Post('logout')
   async logout(@Res({ passthrough: true }) response: Response): Promise<void> {
@@ -82,5 +76,11 @@ export class UsersController {
     @Param('username') username: string,
   ): Promise<AchievementEntity[]> {
     return await this.usersService.getAchievements(username);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get(':username')
+  async get(@Param('username') username: string): Promise<UserEntity> {
+    return await this.usersService.get(username);
   }
 }
