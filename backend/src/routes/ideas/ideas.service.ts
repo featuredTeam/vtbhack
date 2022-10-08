@@ -95,9 +95,5 @@ export class IdeasService {
     if (!idea) throw new NotFoundException();
 
     await this.ideasRepository.update({ id: idea.id }, { status });
-
-    if (status === IdeaStatus.Completed) {
-      this.vtbService.giveRubles(idea.user.publicKey, idea.amount);
-    }
   }
 }
