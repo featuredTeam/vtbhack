@@ -23,7 +23,7 @@ const initialState: StateType = {
 };
 
 const profileSlice = createSlice({
-  name: 'auth',
+  name: 'profile',
   initialState,
   reducers: {
     giveAchievement: (state, action: PayloadAction<number>) => {
