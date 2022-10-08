@@ -1,15 +1,15 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Box from '@mui/material/Box';
-import { Paper, Stack, TextField, Typography } from '@mui/material';
-import { Spacer } from '../../components/common/Spacer';
+import { Stack, TextField, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import { axios } from '../../utils/axiosInstance';
 import { useAppDispatch } from '../../store/store';
 import { getUserAction } from '../../store/auth/authSlice';
+import { useAuth } from '../../store/auth/hooks/useAuth';
 
-type LoginFormType = {
+type SignupFormType = {
   name: string;
   surname: string;
   username: string;
@@ -18,6 +18,7 @@ type LoginFormType = {
 export const SignUpPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { userInfo } = useAuth();
   const { register, handleSubmit } = useForm({
     defaultValues: {
       name: '',
@@ -26,15 +27,21 @@ export const SignUpPage: React.FC = () => {
     },
   });
 
+  useEffect(() => {
+    if (userInfo) {
+      navigate(`/users/${userInfo.username}/profile`);
+    }
+  }, [userInfo]);
+
   const handleToSignIn = useCallback(() => {
     navigate('/sign-in');
   }, []);
 
   const onSubmit = useCallback(
-    handleSubmit(async (data: LoginFormType) => {
+    handleSubmit(async (data: SignupFormType) => {
       await axios.post('users/register', data);
 
-      await dispatch(getUserAction());
+      const userInfo = await dispatch(getUserAction());
     }),
     [],
   );
@@ -73,7 +80,7 @@ export const SignUpPage: React.FC = () => {
             })}
             placeholder="Введите имя пользователя..."
           />
-          <TextField placeholder="Введите пароль..." />
+          <TextField type="password" placeholder="Введите пароль..." />
           <Stack display="flex" justifyContent="space-between" direction="row">
             <Button variant="text" onClick={handleToSignIn}>
               <Typography textTransform="none" fontSize="1em">

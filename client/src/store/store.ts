@@ -2,10 +2,12 @@ import { configureStore, Dispatch } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook } from 'react-redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { authReducer } from './auth/authSlice';
+import { profileReducer } from './profile/profileSlice';
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
+    profile: profileReducer,
   },
 });
 
