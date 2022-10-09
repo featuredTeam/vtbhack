@@ -8,4 +8,5 @@
 
 .image {
     background: #101f54 url('/LinesBackground.png') no-repeat center;
+    background-size: 120% 120%;
 }
