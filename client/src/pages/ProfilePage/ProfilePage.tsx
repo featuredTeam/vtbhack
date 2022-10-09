@@ -188,6 +188,7 @@ export const ProfilePage: React.FC = () => {
             )
             .map((achievement) => (
               <Button
+                key={achievement.id}
                 sx={{ textTransform: 'none' }}
                 onClick={() => {
                   setAchievePickOpened(false);
