@@ -7,10 +7,14 @@ import { UserEntity } from './user.entity';
 
 @Entity()
 export class IdeaUserEntity extends BaseEntity {
-  @ManyToOne(() => UserEntity, (user) => user.id)
+  @ManyToOne(() => UserEntity, (user) => user.id, {
+    onDelete: 'CASCADE',
+  })
   public user: UserEntity;
 
-  @ManyToOne(() => IdeaEntity, (idea) => idea.id)
+  @ManyToOne(() => IdeaEntity, (idea) => idea.id, {
+    onDelete: 'CASCADE',
+  })
   public idea: IdeaEntity;
 
   @Column()

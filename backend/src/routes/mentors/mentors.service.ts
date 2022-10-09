@@ -37,9 +37,9 @@ export class MentorsService {
       },
     });
 
-    if (mentorRequest.mentor) {
-      throw new ConflictException();
-    }
+    // if (mentorRequest.mentor) {
+    //   throw new ConflictException();
+    // }
 
     await this.mentorsRepository.update(
       { id },
