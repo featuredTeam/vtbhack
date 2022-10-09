@@ -95,6 +95,8 @@ export const ProfilePage: React.FC = () => {
     } else {
       await dispatch(transformMoney(+data.amount));
     }
+
+    setDialogOpened(false);
   });
 
   return (

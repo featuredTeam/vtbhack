@@ -1,6 +1,8 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { vtbAxios } from './constants/vtbAxios';
 import { BalanceType } from './types/BalanceType';
+import { NFTBalanceType } from './types/NFTBalanceType';
+import { TransactionHashType } from './types/TransactionHashType';
 import { TransactionStatusType } from './types/TransactionStatusType';
 import { TransactionType } from './types/TransactionType';
 import { WalletType } from './types/WalletType';
@@ -38,6 +40,8 @@ export class VtbService {
     const { data } = await vtbAxios.get<TransactionStatusType>(
       `/v1/transfers/status/${transactionHash}`,
     );
+    console.log(data);
+
     return data;
   }
 
@@ -84,6 +88,8 @@ export class VtbService {
         amount,
       },
     );
+    console.log(data);
+
     return data;
   }
 
@@ -99,6 +105,34 @@ export class VtbService {
         amount,
       },
     );
+
+    console.log(data);
+
+    return data;
+  }
+
+  public async getNFTbalance(publicKey: string): Promise<NFTBalanceType> {
+    const { data } = await vtbAxios.get(`/v1/wallets/${publicKey}/nft/balance`);
+
+    console.log(data, publicKey);
+
+    return data;
+  }
+
+  public async giveNFT(
+    publicKey: string,
+    uri: string,
+  ): Promise<TransactionHashType> {
+    const { data } = await vtbAxios.post<TransactionHashType>(
+      `/v1/nft/generate`,
+      {
+        toPublicKey: publicKey,
+        uri,
+        nftCount: 1,
+      },
+    );
+
+    console.log(data, publicKey);
 
     return data;
   }

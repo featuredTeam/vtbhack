@@ -74,7 +74,7 @@ export class ItemsService {
     if (coinsAmount < item.cost)
       throw new ConflictException('Not enough money');
 
-    const { transactionHash } = await this.vtbService.transform(
+    const { transaction } = await this.vtbService.transform(
       user.privateKey,
       item.cost,
     );
@@ -82,7 +82,7 @@ export class ItemsService {
     const interval = setInterval(async () => {
       try {
         const { status } = await this.vtbService.getTransactionStatus(
-          transactionHash,
+          transaction,
         );
         if (status === 'Pending') return;
         clearInterval(interval);

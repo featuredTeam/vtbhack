@@ -5,6 +5,7 @@ import {
   IsOptional,
   IsPositive,
   IsString,
+  Min,
 } from 'class-validator';
 import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 import { BaseEntity } from './types/BaseEntity';
@@ -31,15 +32,10 @@ export class AchievementEntity extends BaseEntity {
 
   @Column('float')
   @IsNumber()
-  @IsPositive()
+  @Min(0)
   public reward: number;
 
   @Column('json', { nullable: true })
   @IsOptional()
   public conditions?: ConditionType[] | null;
-
-  @ManyToMany(() => UserEntity, (user) => user.achievements)
-  @JoinTable()
-  @ApiHideProperty()
-  public users: UserEntity[];
 }
