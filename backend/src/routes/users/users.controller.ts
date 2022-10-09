@@ -62,7 +62,7 @@ export class UsersController {
   @HttpCode(HttpStatus.OK)
   @Post('logout')
   async logout(@Res({ passthrough: true }) response: Response): Promise<void> {
-    response.clearCookie('username', { path: '/', domain: 'localhost' }).send();
+    response.clearCookie('username').send();
   }
 
   @HttpCode(HttpStatus.OK)
