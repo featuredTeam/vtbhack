@@ -8,11 +8,17 @@ import { UserEntity } from './user.entity';
 
 @Entity()
 export class MentorEntity extends BaseEntity {
-  @ManyToOne(() => UserEntity, (user) => user.id, { eager: true })
+  @ManyToOne(() => UserEntity, (user) => user.id, {
+    onDelete: 'CASCADE',
+    eager: true,
+  })
   @ApiHideProperty()
   public mentor: UserEntity | null;
 
-  @ManyToOne(() => UserEntity, (user) => user.id, { eager: true })
+  @ManyToOne(() => UserEntity, (user) => user.id, {
+    onDelete: 'CASCADE',
+    eager: true,
+  })
   @ApiHideProperty()
   public user: UserEntity;
 

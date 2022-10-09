@@ -7,10 +7,14 @@ import { IsEnum } from 'class-validator';
 
 @Entity()
 export class CourseUserEntity extends BaseEntity {
-  @ManyToOne(() => CourseEntity, (course) => course.id)
+  @ManyToOne(() => CourseEntity, (course) => course.id, {
+    onDelete: 'CASCADE',
+  })
   public course: CourseEntity;
 
-  @ManyToOne(() => UserEntity, (user) => user.id)
+  @ManyToOne(() => UserEntity, (user) => user.id, {
+    onDelete: 'CASCADE',
+  })
   public user: UserEntity;
 
   @Column()
