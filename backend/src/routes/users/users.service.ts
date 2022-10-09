@@ -93,7 +93,7 @@ export class UsersService {
 
     const { balance } = await this.vtbService.getNFTbalance(user.publicKey);
 
-    const achievements = balance.map((nft) => nft.URI);
+    const achievements = balance.map((nft) => nft.uri);
 
     return await this.achievementRepository.find({
       where: {

@@ -45,6 +45,7 @@ export class AchievementsService {
     if (!user) throw new NotFoundException();
 
     await this.vtbService.giveNFT(user.publicKey, String(achievement.id));
-    await this.vtbService.giveRubles(user.publicKey, achievement.reward);
+    if (achievement.reward)
+      await this.vtbService.giveRubles(user.publicKey, achievement.reward);
   }
 }

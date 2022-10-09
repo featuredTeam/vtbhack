@@ -1,6 +1,6 @@
 export type NFTBalanceType = {
   balance: {
-    URI: number;
+    uri: number;
     tokens: number[];
   }[];
 };

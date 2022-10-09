@@ -95,6 +95,8 @@ export const ProfilePage: React.FC = () => {
     } else {
       await dispatch(transformMoney(+data.amount));
     }
+
+    setDialogOpened(false);
   });
 
   return (
@@ -164,6 +166,7 @@ export const ProfilePage: React.FC = () => {
           <Stack marginTop="20px" direction={'row'} columnGap="20px">
             {achievements.map((achievement) => (
               <Achievement
+              key = {achievement.id}
                 {...achievement}
                 completed={
                   !!completedAchievements.find(

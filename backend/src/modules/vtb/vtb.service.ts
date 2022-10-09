@@ -128,6 +128,7 @@ export class VtbService {
       {
         toPublicKey: publicKey,
         uri,
+        nftCount: 1,
       },
     );
 
