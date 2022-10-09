@@ -77,12 +77,12 @@ export const MentorsPage: React.FC = () => {
         ))}
       </Stack>
       <Dialog open={dialogOpened}>
-        <DialogTitle>Какова ваша идея?</DialogTitle>
+        <DialogTitle>Запрос менторства</DialogTitle>
         <DialogContent>
-          <DialogContentText>Заголовок вашего запроса</DialogContentText>
-          <TextField placeholder="Введите название" {...register('title')} />
+          <DialogContentText>Что вы хотите?</DialogContentText>
+          <TextField placeholder="Введите" {...register('title')} />
           <Spacer height="10px" />
-          <DialogContentText>Описание вашего запроса</DialogContentText>
+          <DialogContentText>Опишите подробнее</DialogContentText>
           <Spacer height="10px" />
           <TextField placeholder="Описание название" {...register('text')} />
         </DialogContent>

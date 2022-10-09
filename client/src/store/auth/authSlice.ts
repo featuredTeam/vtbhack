@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 // actions
 import { getUserAction } from './actions/getUser';
 // types
-import { Role, UserInfo } from './types/userInfo';
+import { UserInfo } from './types/userInfo';
 
 type StateType = {
   isAuthorized: boolean;

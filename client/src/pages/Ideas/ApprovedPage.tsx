@@ -39,9 +39,9 @@ export const ApprovedPage: React.FC = () => {
         direction="row"
         sx={{ display: 'flex', maxWidth: '100vw', flexWrap: 'wrap' }}
       >
-        {approved.map((idea) => (
-          <Idea key={idea.id} {...idea} />
-        ))}
+        {approved.map((idea) =>
+          idea && (<Idea key={idea.id} {...idea} />)
+        )}
       </Stack>
     </>
   );
