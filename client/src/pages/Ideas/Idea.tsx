@@ -20,6 +20,7 @@ import IconButton from '@mui/material/IconButton';
 import { useAuth } from '../../store/auth/hooks/useAuth';
 import { approveIdeaAction } from '../../store/ideas/actions/approveIdeaAction';
 import { declineIdeaAction } from '../../store/ideas/actions/declineIdeaAction';
+import { UserRole } from '../../../../common/constants/UserRole';
 
 export const Idea: React.FC<IdeaType> = ({
   user,
@@ -56,7 +57,7 @@ export const Idea: React.FC<IdeaType> = ({
         position: 'relative',
       }}
     >
-      {userInfo && userInfo.roles.length > 0 && (
+      { (userInfo?.roles.map(({ role }) => role).includes(UserRole.Moderator) || userInfo?.roles.map(({ role }) => role).includes(UserRole.Admin) ) && (
         <IconButton
           sx={{ position: 'absolute', top: '10px', right: '10px' }}
           onClick={handleOpenIdeasMenu}

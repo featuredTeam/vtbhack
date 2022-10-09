@@ -26,7 +26,6 @@ import {
 import { Spacer } from '../../components/common/Spacer';
 import { Stack } from '@mui/material';
 import Button from '@mui/material/Button';
-import { Role } from '../../store/auth/types/userInfo';
 import { useForm } from 'react-hook-form';
 import { sendMoneyAction } from '../../store/profile/actions/sendMoney';
 import { transformMoney } from '../../store/profile/actions/transformMoney';
@@ -34,6 +33,7 @@ import { Achievement } from './Achievement';
 import { giveAchievementAction } from '../../store/profile/actions/giveAchievement';
 import Container from '@mui/material/Container';
 import { getBalance } from '../../store/profile/actions/getBalance';
+import { UserRole } from '../../../../common/constants/UserRole';
 
 export const ProfilePage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -151,7 +151,7 @@ export const ProfilePage: React.FC = () => {
             sx={{ width: '100%', justifyContent: 'space-between' }}
           >
             <Typography fontSize="1.7rem">Достижения</Typography>
-            {userInfo?.roles.map(({ role }) => role).includes(Role.Admin) && (
+            {userInfo?.roles.map(({ role }) => role).includes(UserRole.Admin) && (
               <>
                 <Spacer width="200px" />
                 <Button
