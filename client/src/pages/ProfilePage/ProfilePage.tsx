@@ -107,10 +107,6 @@ export const ProfilePage: React.FC = () => {
         <div>
           <Avatar sx={{ width: '200px', height: '200px' }} variant="rounded" />
           <Spacer height="20px" />
-          <Typography fontSize="2.2em" color="primary">
-            {profile.name} {profile.surname}
-          </Typography>
-          <Spacer height="20px" />
           <Typography fontSize="1.6em">Кошелёк</Typography>
           <Spacer height="10px" />
           <Typography fontSize="1.3em">Баланс: {balance}</Typography>
@@ -142,8 +138,12 @@ export const ProfilePage: React.FC = () => {
             </>
           )}
         </div>
-        <Spacer width="50px" />
+        <Spacer width="30px" />
         <Stack>
+          <Typography fontSize="2.2em" color="primary">
+            {profile.name} {profile.surname}
+          </Typography>
+          <Spacer height="20px" />
           <Stack
             direction="row"
             sx={{ width: '100%', justifyContent: 'space-between' }}
@@ -153,10 +153,11 @@ export const ProfilePage: React.FC = () => {
               <>
                 <Spacer width="200px" />
                 <Button
+                  sx={{ borderRadius: '10px', fontSize: '0.7em' }}
                   onClick={() => setAchievePickOpened(true)}
                   variant="contained"
                 >
-                  Открыть достижение
+                  Выдать достижение
                 </Button>
               </>
             )}
@@ -164,6 +165,7 @@ export const ProfilePage: React.FC = () => {
           <Stack marginTop="20px" direction={'row'} columnGap="20px">
             {achievements.map((achievement) => (
               <Achievement
+                key={achievement.id}
                 {...achievement}
                 completed={
                   !!completedAchievements.find(

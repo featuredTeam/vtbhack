@@ -18,7 +18,14 @@ export const Item: React.FC<{ item: ItemType }> = ({ item }) => {
   const { isAuthorized } = useAuth();
 
   return (
-    <Card sx={{ width: 345, display: 'inline-block', marginRight: '20px' }}>
+    <Card
+      sx={{
+        width: 345,
+        display: 'inline-block',
+        marginRight: '20px',
+        marginBottom: '20px',
+      }}
+    >
       <CardActionArea>
         <CardMedia
           component="img"

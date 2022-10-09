@@ -1,5 +1,5 @@
 import Typography from '@mui/material/Typography';
-import { CircularProgress, Stack } from '@mui/material';
+import { CircularProgress, Divider, Stack } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { Idea } from './Idea';
 import { useEffect, useState } from 'react';
@@ -31,8 +31,9 @@ export const ApprovedPage: React.FC = () => {
           justifyContent: 'space-between',
         }}
       >
-        <Typography fontSize="2em">Идеи</Typography>
+        <Typography fontSize="2em">Одобренные идеи</Typography>
       </Stack>
+      <Divider />
       <Spacer height="20px" />
       <Stack
         direction="row"

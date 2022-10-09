@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import { Container } from '@mui/material';
 import { Header } from '../Header/Header';
 import { SignInPage } from '../../pages/SignInPage/SignInPage';
@@ -12,6 +12,7 @@ import { ApprovedPage } from '../../pages/Ideas/ApprovedPage';
 import { NotApprovedPage } from '../../pages/Ideas/NotApprovedPage';
 import { MentorsPage } from '../../pages/Mentors/MentorsPage';
 import { MarketPlacePage } from '../../pages/MarketPlacePage/MarketPlacePage';
+import { LandingPage } from '../../pages/LandingPage/LandingPage';
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -22,6 +23,10 @@ export const App: React.FC = () => {
   return (
     <>
       <Header />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="*" element={<Outlet />} />
+      </Routes>
       <Container>
         <Routes>
           <Route path="sign-in" element={<SignInPage />} />
@@ -32,7 +37,7 @@ export const App: React.FC = () => {
           <Route path="study/mentoring" element={<MentorsPage />} />
           <Route path="ideas/approved" element={<ApprovedPage />} />
           <Route path="ideas/voting" element={<NotApprovedPage />} />
-          <Route path="*" element={<div>Страница не найдена</div>} />
+          <Route path="*" element={<Navigate to={'/'} />} />
         </Routes>
       </Container>
     </>

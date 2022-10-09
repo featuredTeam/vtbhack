@@ -9,6 +9,7 @@ import { getItems } from '../../store/items/actions/getItems';
 import { Item } from './Item';
 import { Spacer } from '../../components/common/Spacer';
 import Typography from '@mui/material/Typography';
+import { getBalance } from '../../store/profile/actions/getBalance';
 
 export const MarketPlacePage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -18,10 +19,13 @@ export const MarketPlacePage: React.FC = () => {
   const { items, loading } = useAppSelector((store) => store.items);
 
   useEffect(() => {
-    dispatch(setLoading(true));
-    if (userInfo) dispatch(setProfile(userInfo));
+    (async () => {
+      dispatch(setLoading(true));
+      await dispatch(getBalance());
+      if (userInfo) await dispatch(setProfile(userInfo));
 
-    dispatch(setLoading(false));
+      dispatch(setLoading(false));
+    })();
   }, [userInfo]);
 
   useEffect(() => {
@@ -51,7 +55,12 @@ export const MarketPlacePage: React.FC = () => {
       <Spacer height="20px" />
       <Stack
         direction="row"
-        sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}
+        sx={{
+          width: '100%',
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'flex-start',
+        }}
       >
         {items?.map((item) => (
           <Item key={item.id} item={item} />

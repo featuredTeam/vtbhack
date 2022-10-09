@@ -1,6 +1,6 @@
 import Typography from '@mui/material/Typography';
 import { Spacer } from '../../components/common/Spacer';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Divider } from '@mui/material';
 import { useAppDispatch } from '../../store/store';
 import { useCourses } from '../../store/courses/hooks/useCourses';
 import { useEffect } from 'react';
@@ -23,6 +23,8 @@ export const CoursesPage: React.FC = () => {
     <>
       <Spacer height="20px" />
       <Typography fontSize="2em">Курсы</Typography>
+      <Divider />
+      <Spacer height={'20px'} />
       {courses.map((course) => (
         <Course key={course.id} {...course} />
       ))}

@@ -6,6 +6,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Divider,
   Stack,
   TextField,
 } from '@mui/material';
@@ -59,7 +60,7 @@ export const NotApprovedPage: React.FC = () => {
           justifyContent: 'space-between',
         }}
       >
-        <Typography fontSize="2em">Идеи</Typography>
+        <Typography fontSize="2em">Идеи на рассмотрении</Typography>
         <Button
           onClick={() => setDialogOpened(true)}
           sx={{ height: '30px' }}
@@ -69,6 +70,7 @@ export const NotApprovedPage: React.FC = () => {
           Предложить идею
         </Button>
       </Stack>
+      <Divider />
       <Spacer height="20px" />
       <Stack
         direction="row"

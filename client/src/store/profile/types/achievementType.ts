@@ -1,5 +1,7 @@
 export type AchievementType = {
   id: number;
   name: string;
-  amount: number;
+  reward: number;
+  description: string;
+  image: string;
 };

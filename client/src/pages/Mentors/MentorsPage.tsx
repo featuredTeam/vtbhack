@@ -53,12 +53,17 @@ export const MentorsPage: React.FC = () => {
       <Spacer height="20px" />
       <Stack
         direction="row"
-        sx={{ display: 'flex', justifyContent: 'space-between' }}
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
       >
         <Typography fontSize="2em">Запросы на менторство</Typography>
         <Button
           onClick={() => setDialogOpened(true)}
           sx={{ height: '30px' }}
+          size={'small'}
           variant="contained"
         >
           Оставить заявку
