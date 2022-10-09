@@ -2,7 +2,7 @@ export type CourseType = {
   id: number;
   name: string;
   link: string;
-  required: string;
+  required: boolean;
   image: string;
   status?: CourseStatus;
 };

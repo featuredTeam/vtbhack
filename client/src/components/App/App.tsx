@@ -25,21 +25,28 @@ export const App: React.FC = () => {
       <Header />
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="*" element={<Outlet />} />
+        <Route
+          path="*"
+          element={
+            <Container>
+              <Routes>
+                <Route path="sign-in" element={<SignInPage />} />
+                <Route path="sign-up" element={<SignUpPage />} />
+                <Route path="marketplace" element={<MarketPlacePage />} />
+                <Route
+                  path="users/:username/profile"
+                  element={<ProfilePage />}
+                />
+                <Route path="study/courses" element={<CoursesPage />} />
+                <Route path="study/mentoring" element={<MentorsPage />} />
+                <Route path="ideas/approved" element={<ApprovedPage />} />
+                <Route path="ideas/voting" element={<NotApprovedPage />} />
+                <Route path="*" element={<Navigate to={'/'} />} />
+              </Routes>
+            </Container>
+          }
+        />
       </Routes>
-      <Container>
-        <Routes>
-          <Route path="sign-in" element={<SignInPage />} />
-          <Route path="sign-up" element={<SignUpPage />} />
-          <Route path="marketplace" element={<MarketPlacePage />} />
-          <Route path="users/:username/profile" element={<ProfilePage />} />
-          <Route path="study/courses" element={<CoursesPage />} />
-          <Route path="study/mentoring" element={<MentorsPage />} />
-          <Route path="ideas/approved" element={<ApprovedPage />} />
-          <Route path="ideas/voting" element={<NotApprovedPage />} />
-          <Route path="*" element={<Navigate to={'/'} />} />
-        </Routes>
-      </Container>
     </>
   );
 };

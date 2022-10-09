@@ -1,5 +1,5 @@
 .screen {
-    height: 90vh;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,5 +7,5 @@
 }
 
 .image {
-    background-color: darkblue;
+    background: url('Component 10 (1) (1).png') center;
 }

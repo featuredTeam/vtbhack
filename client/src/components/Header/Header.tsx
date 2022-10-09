@@ -11,7 +11,7 @@ import { useAuth } from '../../store/auth/hooks/useAuth';
 import { ProfileMenu } from './ProfileMenu';
 import { LoginSignup } from './LoginSignup';
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowDropDown } from '@mui/icons-material';
 import { Spacer } from '../common/Spacer';
 
@@ -47,7 +47,9 @@ export const Header = () => {
       <AppBar position="sticky">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <Logo />
+            <Link to="/">
+              <Logo />
+            </Link>
             <Spacer width="40px" />
             <Box sx={{ flexGrow: 1, display: 'flex' }}>
               <Button onClick={() => navigate('/marketplace')}>
